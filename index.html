@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centro Místico Luna Llena - Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 2px solid #ffd700;
+        }
+
+        .header h1 {
+            color: #ffd700;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .header p {
+            margin-top: 0.5rem;
+            color: #ccc;
+        }
+
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 1rem;
+        }
+
+        .tab-button {
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid #ffd700;
+            color: #ffd700;
+            padding: 0.8rem 1.5rem;
+            margin: 0 0.5rem;
+            cursor: pointer;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .tab-button:hover, .tab-button.active {
+            background: #ffd700;
+            color: #000;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .tab-content {
+            display: none;
+            padding: 2rem;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .card h3 {
+            color: #ffd700;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            margin: 0.5rem 0;
+            padding: 0.5rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+
+        .qr-section {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .qr-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .qr-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            border: 2px solid #ffd700;
+        }
+
+        .qr-placeholder {
+            width: 120px;
+            height: 120px;
+            background: #fff;
+            margin: 0 auto 1rem;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            font-weight: bold;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        
+        .qr-real {
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAh1BMVEUAAAAzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzO7+PkAAAAKnRSTlMAETMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzOF8cQAAAAKQklEQVR4nO2da3uqOhCGQxIQFBFFRbFWW2u9tLb7///dkyQTLoJade/1fZo+H9qlyMskmckkJKqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqr/9Bg');
+            color: transparent;
+        }
+
+        .reservation-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            color: #ffd700;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group select,
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ffd700;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.3);
+            color: #fff;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #000;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin: 1rem 0;
+        }
+
+        .lunar-phase {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+
+        .phase-icon {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .alert {
+            background: rgba(255, 0, 0, 0.2);
+            border: 1px solid #ff6b6b;
+            color: #ff6b6b;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .success {
+            background: rgba(0, 255, 0, 0.2);
+            border: 1px solid #51cf66;
+            color: #51cf66;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🌙 Centro Místico Luna Llena</h1>
+        <h2>Sistema de Gestión y Reservas - Zona Rosa, CDMX</h2>
+        <p>Equipo 3</p>
+        <p>Carmona Viana Y Cortes Buendia</p>
+    </div>
+
+    <div class="nav-tabs">
+        <button class="tab-button active" onclick="showTab('dashboard')">📊 Dashboard</button>
+        <button class="tab-button" onclick="showTab('reservas')">📅 Reservas</button>
+        <button class="tab-button" onclick="showTab('qr-codes')">📱 Códigos QR</button>
+        <button class="tab-button" onclick="showTab('inventario')">📦 Inventario</button>
+    </div>
+
+    <!-- Dashboard Tab -->
+    <div id="dashboard" class="tab-content active">
+        <div class="dashboard-grid">
+            <div class="card">
+                <h3>🔮 Métricas en Tiempo Real</h3>
+                <div class="metric">
+                    <span>Consultorios Ocupados:</span>
+                    <span><strong>8/10</strong></span>
+                </div>
+                <div class="metric">
+                    <span>Streaming Activo:</span>
+                    <span><strong>🔴 LIVE</strong></span>
+                </div>
+                <div class="metric">
+                    <span>Estudiantes Online:</span>
+                    <span><strong>127</strong></span>
+                </div>
+                <div class="metric">
+                    <span>Ventas del Día:</span>
+                    <span><strong>$12,450 MXN</strong></span>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>🌙 Fase Lunar Actual</h3>
+                <div class="lunar-phase">
+                    <div class="phase-icon">🌕</div>
+                    <h4>Luna Llena</h4>
+                    <p>Pico de demanda - Actividad 300% mayor</p>
+                    <p><strong>Próximo cambio:</strong> 3 días</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>⚠️ Alertas Automáticas</h3>
+                <div class="alert">
+                    <strong>Stock Bajo:</strong> Cuarzos rosas (5 restantes)
+                </div>
+                <div class="alert success">
+                    <strong>Consultorio Libre:</strong> Sala VIP disponible
+                </div>
+                <div class="alert">
+                    <strong>Pico de Tráfico:</strong> 15 personas en lista de espera
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>💎 Top Productos del Día</h3>
+                <div class="metric">
+                    <span>1. Cuarzo Rosa</span>
+                    <span><strong>23 vendidos</strong></span>
+                </div>
+                <div class="metric">
+                    <span>2. Veladora 7 Días</span>
+                    <span><strong>18 vendidas</strong></span>
+                </div>
+                <div class="metric">
+                    <span>3. Tarot Rider</span>
+                    <span><strong>12 vendidos</strong></span>
+                </div>
+                <div class="metric">
+                    <span>4. Incienso Sándalo</span>
+                    <span><strong>15 vendidos</strong></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="card">
+                <h3>📈 Consultas por Especialista</h3>
+                <div class="chart-container">
+                    <canvas id="consultasChart"></canvas>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>💰 Ventas por Categoría</h3>
+                <div class="chart-container">
+                    <canvas id="ventasChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reservas Tab -->
+    <div id="reservas" class="tab-content">
+        <div class="reservation-form">
+            <h2 style="text-align: center; color: #ffd700; margin-bottom: 2rem;">🔮 Reservar Consulta</h2>
+            
+            <div class="form-group">
+                <label for="servicio">Tipo de Servicio:</label>
+                <select id="servicio" onchange="updateSpecialists()">
+                    <option value="">Selecciona un servicio...</option>
+                    <option value="tarot">🃏 Lectura de Tarot</option>
+                    <option value="videncia">🔮 Videncia y Consultas Espirituales</option>
+                    <option value="terapia">✨ Terapias Energéticas</option>
+                    <option value="vip">👑 Consulta VIP</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="especialista">Especialista:</label>
+                <select id="especialista">
+                    <option value="">Primero selecciona un servicio...</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="fecha">Fecha:</label>
+                <input type="date" id="fecha">
+            </div>
+
+            <div class="form-group">
+                <label for="hora">Hora:</label>
+                <select id="hora">
+                    <option value="">Selecciona una hora...</option>
+                    <option value="09:00">09:00 AM</option>
+                    <option value="10:00">10:00 AM</option>
+                    <option value="11:00">11:00 AM</option>
+                    <option value="12:00">12:00 PM</option>
+                    <option value="14:00">02:00 PM</option>
+                    <option value="15:00">03:00 PM</option>
+                    <option value="16:00">04:00 PM</option>
+                    <option value="17:00">05:00 PM</option>
+                    <option value="18:00">06:00 PM</option>
+                    <option value="19:00">07:00 PM</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="nombre">Nombre Completo:</label>
+                <input type="text" id="nombre" placeholder="Tu nombre completo">
+            </div>
+
+            <div class="form-group">
+                <label for="telefono">Teléfono:</label>
+                <input type="tel" id="telefono" placeholder="55 1234 5678">
+            </div>
+
+            <button class="btn" onclick="reservarCita()">✨ Confirmar Reserva</button>
+            
+            <div id="reservaResult" style="margin-top: 1rem;"></div>
+        </div>
+    </div>
+
+    <!-- QR Codes Tab -->
+    <div id="qr-codes" class="tab-content">
+        <div class="qr-section">
+            <h2 style="color: #ffd700; margin-bottom: 2rem;">📱 Códigos QR para Reservas</h2>
+            <p>Escanea el código QR desde tu mesa para hacer una reserva directa</p>
+            
+            <div class="qr-grid">
+                <div class="qr-card">
+                    <div class="qr-placeholder qr-real" id="qr1"></div>
+                    <h4>🃏 Mesa Tarot 1</h4>
+                    <p>http://192.168.40.10/reserva/tarot-mesa1</p>
+                    <button class="btn" onclick="generateQR('qr1', 'http://192.168.40.10/reserva/tarot-mesa1')" style="margin-top: 10px; padding: 5px 10px; font-size: 12px;">Generar QR</button>
+                </div>
+                
+                <div class="qr-card">
+                    <div class="qr-placeholder qr-real" id="qr2"></div>
+                    <h4>🔮 Mesa Videncia 1</h4>
+                    <p>http://192.168.40.10/reserva/videncia-mesa2</p>
+                    <button class="btn" onclick="generateQR('qr2', 'http://192.168.40.10/reserva/videncia-mesa2')" style="margin-top: 10px; padding: 5px 10px; font-size: 12px;">Generar QR</button>
+                </div>
+                
+                <div class="qr-card">
+                    <div class="qr-placeholder qr-real" id="qr3"></div>
+                    <h4>✨ Mesa Terapia 1</h4>
+                    <p>http://192.168.40.10/reserva/terapia-mesa3</p>
+                    <button class="btn" onclick="generateQR('qr3', 'http://192.168.40.10/reserva/terapia-mesa3')" style="margin-top: 10px; padding: 5px 10px; font-size: 12px;">Generar QR</button>
+                </div>
+                
+                <div class="qr-card">
+                    <div class="qr-placeholder qr-real" id="qr4"></div>
+                    <h4>👑 Sala VIP</h4>
+                    <p>http://192.168.40.10/reserva/vip-sala</p>
+                    <button class="btn" onclick="generateQR('qr4', 'http://192.168.40.10/reserva/vip-sala')" style="margin-top: 10px; padding: 5px 10px; font-size: 12px;">Generar QR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Inventario Tab -->
+    <div id="inventario" class="tab-content">
+        <div class="dashboard-grid">
+            <div class="card">
+                <h3>💎 Cristales y Gemas</h3>
+                <div class="metric">
+                    <span>Cuarzo Rosa</span>
+                    <span style="color: #ff6b6b;"><strong>5 restantes ⚠️</strong></span>
+                </div>
+                <div class="metric">
+                    <span>Amatista</span>
+                    <span style="color: #51cf66;"><strong>23 disponibles ✅</strong></span>
+                </div>
+                <div class="metric">
+                    <span>Cuarzo Blanco</span>
+                    <span style="color: #51cf66;"><strong>18 disponibles ✅</strong></span>
+                </div>
+                <div class="metric">
+                    <span>Obsidiana</span>
+                    <span style="color: #ffd700;"><strong>12 disponibles ⚡</strong></span>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>🕯️ Veladoras e Inciensos</h3>
+                <div class="metric">
+                    <span>Veladora 7 Días</span>
+                    <span style="color: #51cf66;"><strong>45 disponibles ✅</strong></span>
+                </div>
+                <div class="metric">
+                    <span>Incienso Sándalo</span>
+                    <span style="color: #ff6b6b;"><strong>8 restantes ⚠️</strong></span>
+                </div>
+                <div class="metric">
+                    <span>Veladora Roja</span>
+                    <span style="color: #51cf66;"><strong>32 disponibles ✅</strong></span>
+                </div>
+                <div class="metric">
+                    <span>Sahumerios</span>
+                    <span style="color: #ffd700;"><strong>15 disponibles ⚡</strong></span>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>📚 Libros y Material</h3>
+                <div class="metric">
+                    <span>Tarot Rider Waite</span>
+                    <span style="color: #51cf66;"><strong>12 disponibles ✅</strong></span>
+                </div>
+                <div class="metric">
+                    <span>Libro de Numerología</span>
+                    <span style="color: #ffd700;"><strong>7 disponibles ⚡</strong></span>
+                </div>
+                <div class="metric">
+                    <span>Manual de Cristales</span>
+                    <span style="color: #51cf66;"><strong>15 disponibles ✅</strong></span>
+                </div>
+                <div class="metric">
+                    <span>Cartas de Angeles</span>
+                    <span style="color: #ff6b6b;"><strong>3 restantes ⚠️</strong></span>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>📊 Estadísticas de Temporada</h3>
+                <div class="chart-container">
+                    <canvas id="temporadaChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Función para cambiar tabs
+        function showTab(tabName) {
+            // Ocultar todos los contenidos
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+            
+            // Quitar clase active de todos los botones
+            const buttons = document.querySelectorAll('.tab-button');
+            buttons.forEach(button => button.classList.remove('active'));
+            
+            // Mostrar el contenido seleccionado
+            document.getElementById(tabName).classList.add('active');
+            
+            // Activar el botón correspondiente
+            event.target.classList.add('active');
+        }
+
+        // Datos para especialistas
+        const especialistas = {
+            tarot: ['Madame Luna', 'Maestro Carlos', 'Esperanza Vidente', 'Doña María'],
+            videncia: ['Cristal Mystic', 'Profesor Alejandro', 'Luna Plateada'],
+            terapia: ['Sanadora Paz', 'Maestro Luz', 'Terapeuta Armonia'],
+            vip: ['Gran Maestra Selene', 'Vidente Supremo']
+        };
+
+        function updateSpecialists() {
+            const servicio = document.getElementById('servicio').value;
+            const especialistaSelect = document.getElementById('especialista');
+            
+            especialistaSelect.innerHTML = '<option value="">Selecciona un especialista...</option>';
+            
+            if (servicio && especialistas[servicio]) {
+                especialistas[servicio].forEach(especialista => {
+                    const option = document.createElement('option');
+                    option.value = especialista;
+                    option.textContent = especialista;
+                    especialistaSelect.appendChild(option);
+                });
+            }
+        }
+
+        function reservarCita() {
+            const servicio = document.getElementById('servicio').value;
+            const especialista = document.getElementById('especialista').value;
+            const fecha = document.getElementById('fecha').value;
+            const hora = document.getElementById('hora').value;
+            const nombre = document.getElementById('nombre').value;
+            const telefono = document.getElementById('telefono').value;
+            
+            const resultDiv = document.getElementById('reservaResult');
+            
+            if (!servicio || !especialista || !fecha || !hora || !nombre || !telefono) {
+                resultDiv.innerHTML = '<div class="alert">Por favor completa todos los campos</div>';
+                return;
+            }
+            
+            resultDiv.innerHTML = `
+                <div class="alert success">
+                    <h4>✅ ¡Reserva Confirmada!</h4>
+                    <p><strong>Servicio:</strong> ${document.getElementById('servicio').options[document.getElementById('servicio').selectedIndex].text}</p>
+                    <p><strong>Especialista:</strong> ${especialista}</p>
+                    <p><strong>Fecha:</strong> ${fecha}</p>
+                    <p><strong>Hora:</strong> ${hora}</p>
+                    <p><strong>Cliente:</strong> ${nombre}</p>
+                    <br>
+                    <p>📱 Te enviaremos un SMS de confirmación al ${telefono}</p>
+                    <p>🔮 Llega 10 minutos antes de tu cita</p>
+                </div>
+            `;
+        }
+
+        // Función para generar QR codes reales
+        function generateQR(elementId, url) {
+            const qrElement = document.getElementById(elementId);
+            const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${encodeURIComponent(url)}`;
+            qrElement.style.backgroundImage = `url(${qrUrl})`;
+            qrElement.innerHTML = '';
+        }
+
+        // Generar QRs automáticamente al cargar
+        window.addEventListener('load', function() {
+            generateQR('qr1', 'http://192.168.40.10/reserva/tarot-mesa1');
+            generateQR('qr2', 'http://192.168.40.10/reserva/videncia-mesa2');
+            generateQR('qr3', 'http://192.168.40.10/reserva/terapia-mesa3');
+            generateQR('qr4', 'http://192.168.40.10/reserva/vip-sala');
+        });
+
+        // Configurar fecha mínima (hoy)
+        document.getElementById('fecha').min = new Date().toISOString().split('T')[0];
+
+        // Crear gráficos
+        window.onload = function() {
+            // Gráfico de consultas por especialista
+            const ctx1 = document.getElementById('consultasChart').getContext('2d');
+            new Chart(ctx1, {
+                type: 'bar',
+                data: {
+                    labels: ['Tarotistas', 'Videntes', 'Terapeutas', 'VIP'],
+                    datasets: [{
+                        label: 'Consultas del Día',
+                        data: [15, 12, 8, 3],
+                        backgroundColor: [
+                            'rgba(255, 215, 0, 0.8)',
+                            'rgba(138, 43, 226, 0.8)',
+                            'rgba(0, 191, 255, 0.8)',
+                            'rgba(255, 69, 0, 0.8)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 215, 0, 1)',
+                            'rgba(138, 43, 226, 1)',
+                            'rgba(0, 191, 255, 1)',
+                            'rgba(255, 69, 0, 1)'
+                        ],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#fff'
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            ticks: {
+                                color: '#fff'
+                            }
+                        },
+                        y: {
+                            ticks: {
+                                color: '#fff'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Gráfico de ventas por categoría
+            const ctx2 = document.getElementById('ventasChart').getContext('2d');
+            new Chart(ctx2, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Cristales', 'Veladoras', 'Libros', 'Inciensos', 'Amuletos'],
+                    datasets: [{
+                        data: [35, 25, 15, 15, 10],
+                        backgroundColor: [
+                            'rgba(255, 215, 0, 0.8)',
+                            'rgba(255, 69, 0, 0.8)',
+                            'rgba(138, 43, 226, 0.8)',
+                            'rgba(0, 191, 255, 0.8)',
+                            'rgba(255, 20, 147, 0.8)'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#fff'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Gráfico de temporada
+            const ctx3 = document.getElementById('temporadaChart').getContext('2d');
+            new Chart(ctx3, {
+                type: 'line',
+                data: {
+                    labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun'],
+                    datasets: [{
+                        label: 'Ventas por Mes',
+                        data: [120, 190, 150, 180, 200, 250],
+                        borderColor: 'rgba(255, 215, 0, 1)',
+                        backgroundColor: 'rgba(255, 215, 0, 0.2)',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#fff'
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            ticks: {
+                                color: '#fff'
+                            }
+                        },
+                        y: {
+                            ticks: {
+                                color: '#fff'
+                            }
+                        }
+                    }
+                }
+            });
+        };
+    </script>
+</body>
+</html>
