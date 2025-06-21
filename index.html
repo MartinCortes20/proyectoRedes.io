@@ -3,319 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Centro Místico Luna Llena - Dashboard</title>
+    <title>Centro Místico Luna Llena - Sistema Completo</title>
+    
+    <!-- External Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
-            color: #fff;
-            min-height: 100vh;
-        }
-
-        .header {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 1rem;
-            text-align: center;
-            border-bottom: 2px solid #ffd700;
-        }
-
-        .header h1 {
-            color: #ffd700;
-            font-size: 2.5rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-
-        .header p {
-            margin-top: 0.5rem;
-            color: #ccc;
-        }
-
-        .nav-tabs {
-            display: flex;
-            justify-content: center;
-            background: rgba(0, 0, 0, 0.2);
-            padding: 1rem;
-        }
-
-        .tab-button {
-            background: rgba(255, 215, 0, 0.1);
-            border: 2px solid #ffd700;
-            color: #ffd700;
-            padding: 0.8rem 1.5rem;
-            margin: 0 0.5rem;
-            cursor: pointer;
-            border-radius: 25px;
-            transition: all 0.3s ease;
-        }
-
-        .tab-button:hover, .tab-button.active {
-            background: #ffd700;
-            color: #000;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
-        }
-
-        .tab-content {
-            display: none;
-            padding: 2rem;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .card {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 1.5rem;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        }
-
-        .card h3 {
-            color: #ffd700;
-            margin-bottom: 1rem;
-            text-align: center;
-        }
-
-        .metric {
-            display: flex;
-            justify-content: space-between;
-            margin: 0.5rem 0;
-            padding: 0.5rem;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 8px;
-        }
-
-        .qr-section {
-            text-align: center;
-            margin: 2rem 0;
-        }
-
-        .qr-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .qr-card {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 1rem;
-            border-radius: 10px;
-            border: 2px solid #ffd700;
-        }
-
-        .qr-placeholder {
-            width: 120px;
-            height: 120px;
-            background: #fff;
-            margin: 0 auto 1rem;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #000;
-            font-weight: bold;
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-        }
-        
-        .qr-real {
-            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAh1BMVEUAAAAzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzO7+PkAAAAKnRSTlMAETMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzOF8cQAAAAKQklEQVR4nO2da3uqOhCGQxIQFBFFRbFWW2u9tLb7///dkyQTLoJade/1fZo+H9qlyMskmckkJKqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqr/9Bg');
-            color: transparent;
-        }
-
-        .reservation-form {
-            max-width: 600px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 2rem;
-            border-radius: 15px;
-            border: 1px solid rgba(255, 215, 0, 0.3);
-        }
-
-        .form-group {
-            margin-bottom: 1rem;
-        }
-
-        .form-group label {
-            display: block;
-            color: #ffd700;
-            margin-bottom: 0.5rem;
-        }
-
-        .form-group select,
-        .form-group input {
-            width: 100%;
-            padding: 0.8rem;
-            border: 1px solid #ffd700;
-            border-radius: 8px;
-            background: rgba(0, 0, 0, 0.3);
-            color: #fff;
-        }
-
-        .btn {
-            background: linear-gradient(45deg, #ffd700, #ffed4e);
-            color: #000;
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            width: 100%;
-            margin-top: 1rem;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
-        }
-
-        .chart-container {
-            position: relative;
-            height: 300px;
-            margin: 1rem 0;
-        }
-
-        .lunar-phase {
-            text-align: center;
-            padding: 1rem;
-            background: rgba(255, 215, 0, 0.1);
-            border-radius: 10px;
-            margin: 1rem 0;
-        }
-
-        .phase-icon {
-            font-size: 3rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .alert {
-            background: rgba(255, 0, 0, 0.2);
-            border: 1px solid #ff6b6b;
-            color: #ff6b6b;
-            padding: 1rem;
-            border-radius: 8px;
-            margin: 1rem 0;
-        }
-
-        .success {
-            background: rgba(0, 255, 0, 0.2);
-            border: 1px solid #51cf66;
-            color: #51cf66;
-        }
-    </style>
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/themes.css">
 </head>
 <body>
     <div class="header">
         <h1>🌙 Centro Místico Luna Llena</h1>
-        <h2>Sistema de Gestión y Reservas - Zona Rosa, CDMX</h2>
-        <p>Equipo 3</p>
-        <p>Carmona Viana Y Cortes Buendia</p>
+        <h2>Sistema de Gestión Completo - Zona Rosa, CDMX</h2>
+        <p>Equipo 3 - Carmona Viana Y Cortes Buendia</p>
+        <p>🌐 Servicios de Red: HTTP | SMTP | SYSLOG | TFTP</p>
     </div>
 
     <div class="nav-tabs">
-        <button class="tab-button active" onclick="showTab('dashboard')"> Dashboard</button>
-        <button class="tab-button" onclick="showTab('reservas')"> Reservas</button>
-        <button class="tab-button" onclick="showTab('qr-codes')"> Códigos QR</button>
-        <button class="tab-button" onclick="showTab('inventario')"> Inventario</button>
+        <button class="tab-button active" onclick="showTab('dashboard')">🏠 Dashboard</button>
+        <button class="tab-button" onclick="showTab('reservas')">📅 Reservas</button>
+        <button class="tab-button" onclick="showTab('qr-codes')">📱 QR Codes</button>
+        <button class="tab-button" onclick="showTab('inventario')">📦 Inventario</button>
+        <button class="tab-button" onclick="showTab('mail-server')">📧 Mail Server</button>
+        <button class="tab-button" onclick="showTab('file-server')">📁 File Server</button>
+        <button class="tab-button" onclick="showTab('syslog')">📋 SysLog</button>
     </div>
 
     <!-- Dashboard Tab -->
     <div id="dashboard" class="tab-content active">
         <div class="dashboard-grid">
             <div class="card">
-                <h3> Métricas en Tiempo Real</h3>
+                <h3>🔧 Servicios de Red Activos</h3>
                 <div class="metric">
-                    <span>Consultorios Ocupados:</span>
-                    <span><strong>8/10</strong></span>
+                    <span><span class="status-indicator status-online"></span>HTTP Web Server</span>
+                    <span><strong>172.19.5.146:80</strong></span>
                 </div>
                 <div class="metric">
-                    <span>Streaming Activo:</span>
-                    <span><strong>🔴 LIVE</strong></span>
+                    <span><span class="status-indicator status-online"></span>SMTP Mail Server</span>
+                    <span><strong>172.19.5.146:25</strong></span>
                 </div>
                 <div class="metric">
-                    <span>Estudiantes Online:</span>
-                    <span><strong>127</strong></span>
+                    <span><span class="status-indicator status-online"></span>TFTP File Server</span>
+                    <span><strong>172.19.5.149:69</strong></span>
                 </div>
                 <div class="metric">
-                    <span>Ventas del Día:</span>
-                    <span><strong>$12,450 MXN</strong></span>
+                    <span><span class="status-indicator status-online"></span>SysLog Server</span>
+                    <span><strong>172.19.5.149:514</strong></span>
                 </div>
             </div>
 
             <div class="card">
-                <h3> Fase Lunar Actual</h3>
-                <div class="lunar-phase">
-                    <div class="phase-icon">🌕</div>
-                    <h4>Luna Llena</h4>
-                    <p>Pico de demanda - Actividad 90% mayor</p>
-                    <p><strong>Próximo cambio:</strong> 3 días</p>
+                <h3>📊 Métricas en Tiempo Real</h3>
+                <div id="metricas-tiempo-real">
+                    <!-- Contenido cargado por dashboard.js -->
                 </div>
             </div>
 
             <div class="card">
-                <h3> Alertas Automáticas</h3>
-                <div class="alert">
-                    <strong>Stock Bajo:</strong> Cuarzos rosas (5 restantes)
-                </div>
-                <div class="alert success">
-                    <strong>Consultorio Libre:</strong> Sala VIP disponible
-                </div>
-                <div class="alert">
-                    <strong>Pico de Tráfico:</strong> 15 personas en lista de espera
+                <h3>🌕 Fase Lunar Actual</h3>
+                <div id="fase-lunar">
+                    <!-- Contenido cargado por dashboard.js -->
                 </div>
             </div>
 
             <div class="card">
-                <h3> Top Productos del Día</h3>
-                <div class="metric">
-                    <span>1. Cuarzo Rosa</span>
-                    <span><strong>23 vendidos</strong></span>
-                </div>
-                <div class="metric">
-                    <span>2. Veladora 7 Días</span>
-                    <span><strong>18 vendidas</strong></span>
-                </div>
-                <div class="metric">
-                    <span>3. Tarot Rider</span>
-                    <span><strong>12 vendidos</strong></span>
-                </div>
-                <div class="metric">
-                    <span>4. Incienso Sándalo</span>
-                    <span><strong>15 vendidos</strong></span>
+                <h3>⚠️ Alertas del Sistema</h3>
+                <div id="alertas-sistema">
+                    <!-- Contenido cargado por dashboard.js -->
                 </div>
             </div>
         </div>
 
         <div class="dashboard-grid">
             <div class="card">
-                <h3> Consultas por Especialista</h3>
+                <h3>📈 Consultas por Especialista</h3>
                 <div class="chart-container">
                     <canvas id="consultasChart"></canvas>
                 </div>
             </div>
 
             <div class="card">
-                <h3> Ventas por Categoría</h3>
+                <h3>💰 Ventas por Categoría</h3>
                 <div class="chart-container">
                     <canvas id="ventasChart"></canvas>
                 </div>
@@ -326,7 +95,7 @@
     <!-- Reservas Tab -->
     <div id="reservas" class="tab-content">
         <div class="reservation-form">
-            <h2 style="text-align: center; color: #ffd700; margin-bottom: 2rem;"> Reservar Consulta</h2>
+            <h2 style="text-align: center; color: #ffd700; margin-bottom: 2rem;">✨ Reservar Consulta</h2>
             
             <div class="form-group">
                 <label for="servicio">Tipo de Servicio:</label>
@@ -387,106 +156,24 @@
     <!-- QR Codes Tab -->
     <div id="qr-codes" class="tab-content">
         <div class="qr-section">
-            <h2 style="color: #ffd700; margin-bottom: 2rem;"> Códigos QR para Reservas</h2>
+            <h2 style="color: #ffd700; margin-bottom: 2rem;">📱 Códigos QR para Reservas</h2>
             <p>Escanea el código QR desde tu mesa para hacer una reserva directa</p>
             
-            <div class="qr-grid">
-                <div class="qr-card">
-                    <div class="qr-placeholder qr-real" id="qr1"></div>
-                    <h4>🃏 Mesa Tarot 1</h4>
-                    <p>http://192.168.40.10/reserva/tarot-mesa1</p>
-                    <button class="btn" onclick="generateQR('qr1', 'http://192.168.40.10/reserva/tarot-mesa1')" style="margin-top: 10px; padding: 5px 10px; font-size: 12px;">Generar QR</button>
-                </div>
-                
-                <div class="qr-card">
-                    <div class="qr-placeholder qr-real" id="qr2"></div>
-                    <h4>🔮 Mesa Videncia 1</h4>
-                    <p>http://192.168.40.10/reserva/videncia-mesa2</p>
-                    <button class="btn" onclick="generateQR('qr2', 'http://192.168.40.10/reserva/videncia-mesa2')" style="margin-top: 10px; padding: 5px 10px; font-size: 12px;">Generar QR</button>
-                </div>
-                
-                <div class="qr-card">
-                    <div class="qr-placeholder qr-real" id="qr3"></div>
-                    <h4>✨ Mesa Terapia 1</h4>
-                    <p>http://192.168.40.10/reserva/terapia-mesa3</p>
-                    <button class="btn" onclick="generateQR('qr3', 'http://192.168.40.10/reserva/terapia-mesa3')" style="margin-top: 10px; padding: 5px 10px; font-size: 12px;">Generar QR</button>
-                </div>
-                
-                <div class="qr-card">
-                    <div class="qr-placeholder qr-real" id="qr4"></div>
-                    <h4>👑 Sala VIP</h4>
-                    <p>http://192.168.40.10/reserva/vip-sala</p>
-                    <button class="btn" onclick="generateQR('qr4', 'http://192.168.40.10/reserva/vip-sala')" style="margin-top: 10px; padding: 5px 10px; font-size: 12px;">Generar QR</button>
-                </div>
+            <div class="qr-grid" id="qr-container">
+                <!-- Contenido cargado por main.js -->
             </div>
         </div>
     </div>
 
     <!-- Inventario Tab -->
     <div id="inventario" class="tab-content">
+        <div class="dashboard-grid" id="inventario-container">
+            <!-- Contenido cargado por main.js -->
+        </div>
+
         <div class="dashboard-grid">
             <div class="card">
-                <h3> Cristales y Gemas</h3>
-                <div class="metric">
-                    <span>Cuarzo Rosa</span>
-                    <span style="color: #ff6b6b;"><strong>5 restantes ⚠️</strong></span>
-                </div>
-                <div class="metric">
-                    <span>Amatista</span>
-                    <span style="color: #51cf66;"><strong>23 disponibles ✅</strong></span>
-                </div>
-                <div class="metric">
-                    <span>Cuarzo Blanco</span>
-                    <span style="color: #51cf66;"><strong>18 disponibles ✅</strong></span>
-                </div>
-                <div class="metric">
-                    <span>Obsidiana</span>
-                    <span style="color: #ffd700;"><strong>12 disponibles ⚡</strong></span>
-                </div>
-            </div>
-
-            <div class="card">
-                <h3> Veladoras e Inciensos</h3>
-                <div class="metric">
-                    <span>Veladora 7 Días</span>
-                    <span style="color: #51cf66;"><strong>45 disponibles ✅</strong></span>
-                </div>
-                <div class="metric">
-                    <span>Incienso Sándalo</span>
-                    <span style="color: #ff6b6b;"><strong>8 restantes ⚠️</strong></span>
-                </div>
-                <div class="metric">
-                    <span>Veladora Roja</span>
-                    <span style="color: #51cf66;"><strong>32 disponibles ✅</strong></span>
-                </div>
-                <div class="metric">
-                    <span>Sahumerios</span>
-                    <span style="color: #ffd700;"><strong>15 disponibles ⚡</strong></span>
-                </div>
-            </div>
-
-            <div class="card">
-                <h3> Libros y Material</h3>
-                <div class="metric">
-                    <span>Tarot Rider Waite</span>
-                    <span style="color: #51cf66;"><strong>12 disponibles ✅</strong></span>
-                </div>
-                <div class="metric">
-                    <span>Libro de Numerología</span>
-                    <span style="color: #ffd700;"><strong>7 disponibles ⚡</strong></span>
-                </div>
-                <div class="metric">
-                    <span>Manual de Cristales</span>
-                    <span style="color: #51cf66;"><strong>15 disponibles ✅</strong></span>
-                </div>
-                <div class="metric">
-                    <span>Cartas de Angeles</span>
-                    <span style="color: #ff6b6b;"><strong>3 restantes ⚠️</strong></span>
-                </div>
-            </div>
-
-            <div class="card">
-                <h3> Estadísticas de Temporada</h3>
+                <h3>📊 Estadísticas de Temporada</h3>
                 <div class="chart-container">
                     <canvas id="temporadaChart"></canvas>
                 </div>
@@ -494,217 +181,126 @@
         </div>
     </div>
 
-    <script>
-        // Función para cambiar tabs
-        function showTab(tabName) {
-            // Ocultar todos los contenidos
-            const contents = document.querySelectorAll('.tab-content');
-            contents.forEach(content => content.classList.remove('active'));
-            
-            // Quitar clase active de todos los botones
-            const buttons = document.querySelectorAll('.tab-button');
-            buttons.forEach(button => button.classList.remove('active'));
-            
-            // Mostrar el contenido seleccionado
-            document.getElementById(tabName).classList.add('active');
-            
-            // Activar el botón correspondiente
-            event.target.classList.add('active');
-        }
+    <!-- Mail Server Tab -->
+    <div id="mail-server" class="tab-content">
+        <div class="service-grid">
+            <div class="service-card">
+                <div class="service-icon">📧</div>
+                <h3>Servidor de Correo SMTP</h3>
+                <p><strong>IP:</strong> 172.19.5.146:25</p>
+                <p><span class="status-indicator status-online"></span>Estado: Activo</p>
+                <p><strong>Emails enviados hoy:</strong> <span id="emails-enviados">47</span></p>
+                <p><strong>Cola de envío:</strong> <span id="cola-envio">3</span> pendientes</p>
+            </div>
 
-        // Datos para especialistas
-        const especialistas = {
-            tarot: ['Madame Luna', 'Maestro Carlos', 'Esperanza Vidente', 'Doña María'],
-            videncia: ['Cristal Mystic', 'Profesor Alejandro', 'Luna Plateada'],
-            terapia: ['Sanadora Paz', 'Maestro Luz', 'Terapeuta Armonia'],
-            vip: ['Gran Maestra Selene', 'Vidente Supremo']
-        };
-
-        function updateSpecialists() {
-            const servicio = document.getElementById('servicio').value;
-            const especialistaSelect = document.getElementById('especialista');
-            
-            especialistaSelect.innerHTML = '<option value="">Selecciona un especialista...</option>';
-            
-            if (servicio && especialistas[servicio]) {
-                especialistas[servicio].forEach(especialista => {
-                    const option = document.createElement('option');
-                    option.value = especialista;
-                    option.textContent = especialista;
-                    especialistaSelect.appendChild(option);
-                });
-            }
-        }
-
-        function reservarCita() {
-            const servicio = document.getElementById('servicio').value;
-            const especialista = document.getElementById('especialista').value;
-            const fecha = document.getElementById('fecha').value;
-            const hora = document.getElementById('hora').value;
-            const nombre = document.getElementById('nombre').value;
-            const telefono = document.getElementById('telefono').value;
-            
-            const resultDiv = document.getElementById('reservaResult');
-            
-            if (!servicio || !especialista || !fecha || !hora || !nombre || !telefono) {
-                resultDiv.innerHTML = '<div class="alert">Por favor completa todos los campos</div>';
-                return;
-            }
-            
-            resultDiv.innerHTML = `
-                <div class="alert success">
-                    <h4>✅ ¡Reserva Confirmada!</h4>
-                    <p><strong>Servicio:</strong> ${document.getElementById('servicio').options[document.getElementById('servicio').selectedIndex].text}</p>
-                    <p><strong>Especialista:</strong> ${especialista}</p>
-                    <p><strong>Fecha:</strong> ${fecha}</p>
-                    <p><strong>Hora:</strong> ${hora}</p>
-                    <p><strong>Cliente:</strong> ${nombre}</p>
-                    <br>
-                    <p>📱 Te enviaremos un SMS de confirmación al ${telefono}</p>
-                    <p>🔮 Llega 10 minutos antes de tu cita</p>
+            <div class="card">
+                <h3>📊 Estadísticas de Email</h3>
+                <div id="estadisticas-email">
+                    <!-- Contenido cargado por mail-server.js -->
                 </div>
-            `;
-        }
+            </div>
+        </div>
 
-        // Función para generar QR codes reales
-        function generateQR(elementId, url) {
-            const qrElement = document.getElementById(elementId);
-            const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${encodeURIComponent(url)}`;
-            qrElement.style.backgroundImage = `url(${qrUrl})`;
-            qrElement.innerHTML = '';
-        }
+        <div class="mail-compose">
+            <h3 style="color: #ffd700; margin-bottom: 1rem;">✉️ Enviar Email</h3>
+            <div class="form-group">
+                <label for="emailTo">Para:</label>
+                <input type="email" id="emailTo" placeholder="destinatario@ejemplo.com">
+            </div>
+            <div class="form-group">
+                <label for="emailSubject">Asunto:</label>
+                <input type="text" id="emailSubject" placeholder="Asunto del mensaje">
+            </div>
+            <div class="form-group">
+                <label for="emailBody">Mensaje:</label>
+                <textarea id="emailBody" rows="5" placeholder="Escribe tu mensaje aquí..."></textarea>
+            </div>
+            <button class="btn" onclick="enviarEmail()">📤 Enviar Email</button>
+            <div id="emailResult" style="margin-top: 1rem;"></div>
+        </div>
+    </div>
 
-        // Generar QRs automáticamente al cargar
-        window.addEventListener('load', function() {
-            generateQR('qr1', 'http://192.168.40.10/reserva/tarot-mesa1');
-            generateQR('qr2', 'http://192.168.40.10/reserva/videncia-mesa2');
-            generateQR('qr3', 'http://192.168.40.10/reserva/terapia-mesa3');
-            generateQR('qr4', 'http://192.168.40.10/reserva/vip-sala');
-        });
+    <!-- File Server Tab -->
+    <div id="file-server" class="tab-content">
+        <div class="service-grid">
+            <div class="service-card">
+                <div class="service-icon">📁</div>
+                <h3>Servidor TFTP</h3>
+                <p><strong>IP:</strong> 172.19.5.149:69</p>
+                <p><span class="status-indicator status-online"></span>Estado: Activo</p>
+                <p><strong>Transferencias hoy:</strong> <span id="transferencias-hoy">23</span></p>
+                <p><strong>Espacio usado:</strong> <span id="espacio-usado">2.3GB / 50GB</span></p>
+            </div>
 
-        // Configurar fecha mínima (hoy)
-        document.getElementById('fecha').min = new Date().toISOString().split('T')[0];
+            <div class="card">
+                <h3>📈 Actividad TFTP</h3>
+                <div id="actividad-tftp">
+                    <!-- Contenido cargado por file-server.js -->
+                </div>
+            </div>
+        </div>
 
-        // Crear gráficos
-        window.onload = function() {
-            // Gráfico de consultas por especialista
-            const ctx1 = document.getElementById('consultasChart').getContext('2d');
-            new Chart(ctx1, {
-                type: 'bar',
-                data: {
-                    labels: ['Tarotistas', 'Videntes', 'Terapeutas', 'VIP'],
-                    datasets: [{
-                        label: 'Consultas del Día',
-                        data: [15, 12, 8, 3],
-                        backgroundColor: [
-                            'rgba(255, 215, 0, 0.8)',
-                            'rgba(138, 43, 226, 0.8)',
-                            'rgba(0, 191, 255, 0.8)',
-                            'rgba(255, 69, 0, 0.8)'
-                        ],
-                        borderColor: [
-                            'rgba(255, 215, 0, 1)',
-                            'rgba(138, 43, 226, 1)',
-                            'rgba(0, 191, 255, 1)',
-                            'rgba(255, 69, 0, 1)'
-                        ],
-                        borderWidth: 2
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            labels: {
-                                color: '#fff'
-                            }
-                        }
-                    },
-                    scales: {
-                        x: {
-                            ticks: {
-                                color: '#fff'
-                            }
-                        },
-                        y: {
-                            ticks: {
-                                color: '#fff'
-                            }
-                        }
-                    }
-                }
-            });
+        <div class="file-manager">
+            <h3 style="color: #ffd700; margin-bottom: 1rem;">📂 Gestor de Archivos TFTP</h3>
+            
+            <div class="form-group">
+                <label for="fileUpload">Subir Archivo:</label>
+                <input type="file" id="fileUpload" style="color: #fff;">
+                <button class="btn" onclick="subirArchivo()" style="margin-top: 10px; width: auto; padding: 0.5rem 1rem;">📤 Subir</button>
+            </div>
 
-            // Gráfico de ventas por categoría
-            const ctx2 = document.getElementById('ventasChart').getContext('2d');
-            new Chart(ctx2, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Cristales', 'Veladoras', 'Libros', 'Inciensos', 'Amuletos'],
-                    datasets: [{
-                        data: [35, 25, 15, 15, 10],
-                        backgroundColor: [
-                            'rgba(255, 215, 0, 0.8)',
-                            'rgba(255, 69, 0, 0.8)',
-                            'rgba(138, 43, 226, 0.8)',
-                            'rgba(0, 191, 255, 0.8)',
-                            'rgba(255, 20, 147, 0.8)'
-                        ]
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            labels: {
-                                color: '#fff'
-                            }
-                        }
-                    }
-                }
-            });
+            <h4 style="color: #ffd700; margin: 1.5rem 0 1rem 0;">Archivos Disponibles:</h4>
+            <div id="lista-archivos">
+                <!-- Contenido cargado por file-server.js -->
+            </div>
 
-            // Gráfico de temporada
-            const ctx3 = document.getElementById('temporadaChart').getContext('2d');
-            new Chart(ctx3, {
-                type: 'line',
-                data: {
-                    labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun'],
-                    datasets: [{
-                        label: 'Ventas por Mes',
-                        data: [120, 190, 150, 180, 200, 250],
-                        borderColor: 'rgba(255, 215, 0, 1)',
-                        backgroundColor: 'rgba(255, 215, 0, 0.2)',
-                        tension: 0.4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            labels: {
-                                color: '#fff'
-                            }
-                        }
-                    },
-                    scales: {
-                        x: {
-                            ticks: {
-                                color: '#fff'
-                            }
-                        },
-                        y: {
-                            ticks: {
-                                color: '#fff'
-                            }
-                        }
-                    }
-                }
-            });
-        };
-    </script>
+            <div id="fileResult" style="margin-top: 1rem;"></div>
+        </div>
+    </div>
+
+    <!-- SysLog Tab -->
+    <div id="syslog" class="tab-content">
+        <div class="service-grid">
+            <div class="service-card">
+                <div class="service-icon">📋</div>
+                <h3>Servidor SysLog</h3>
+                <p><strong>IP:</strong> 172.19.5.149:514</p>
+                <p><span class="status-indicator status-online"></span>Estado: Activo</p>
+                <p><strong>Eventos hoy:</strong> <span id="eventos-hoy">1,247</span></p>
+                <p><strong>Errores críticos:</strong> <span id="errores-criticos">0</span></p>
+            </div>
+
+            <div class="card">
+                <h3>📊 Estadísticas de Logs</h3>
+                <div id="estadisticas-logs">
+                    <!-- Contenido cargado por syslog.js -->
+                </div>
+            </div>
+        </div>
+
+        <div class="network-monitor">
+            <h3 style="color: #ffd700; margin-bottom: 1rem;">🖥️ Monitor de Red</h3>
+            <div class="dashboard-grid" id="monitor-red">
+                <!-- Contenido cargado por syslog.js -->
+            </div>
+        </div>
+
+        <div class="log-container">
+            <h4 style="color: #ffd700; margin-bottom: 1rem;">📝 Logs en Tiempo Real</h4>
+            <div id="syslogMessages">
+                <!-- Contenido cargado por syslog.js -->
+            </div>
+            <button class="btn" onclick="actualizarLogs()" style="margin-top: 1rem;">🔄 Actualizar Logs</button>
+        </div>
+    </div>
+
+    <!-- JavaScript Files -->
+    <script src="js/main.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/reservas.js"></script>
+    <script src="js/mail-server.js"></script>
+    <script src="js/file-server.js"></script>
+    <script src="js/syslog.js"></script>
+    <script src="js/charts.js"></script>
 </body>
 </html>
