@@ -10,7 +10,7 @@
 // ========================================
 
 const SMTP_CONFIG = {
-    server: '172.19.5.146',
+    server: window.NETWORK_CONFIG?.SMTP_SERVER || '172.19.5.146',
     port: 25,
     protocol: 'SMTP',
     maxQueue: 50,

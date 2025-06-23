@@ -10,7 +10,7 @@
 // ========================================
 
 const TFTP_CONFIG = {
-    server: '172.19.5.149',
+    server: window.NETWORK_CONFIG?.TFTP_SERVER || '172.19.5.149',
     port: 69,
     protocol: 'TFTP',
     maxFileSize: '50MB',
