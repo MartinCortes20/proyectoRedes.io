@@ -1,0 +1,601 @@
+/* Centro Luna - FTP Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header */
+.header {
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 1rem 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo a {
+    color: #58a6ff;
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 2rem;
+    transition: color 0.3s;
+}
+
+.nav a:hover {
+    color: #58a6ff;
+}
+
+/* Hero Section */
+.hero-ftp {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
+    color: white;
+    padding: 6rem 0 3rem;
+    margin-top: 80px;
+    text-align: center;
+}
+
+.hero-ftp h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.hero-ftp p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.ftp-info {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.ftp-info span {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.server-info { color: #79c0ff; }
+.port-info { color: #ffd700; }
+.status-info { color: #7ee787; }
+
+/* Dashboard */
+.ftp-dashboard {
+    background: white;
+    padding: 3rem 0;
+    margin: 2rem 0;
+    border-radius: 20px 20px 0 0;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.dashboard-header h3 {
+    color: #333;
+    font-size: 1.8rem;
+}
+
+.controls {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* Buttons */
+.btn {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 25px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.3s;
+    font-weight: 500;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+.btn-success {
+    background: linear-gradient(45deg, #28a745, #20c997);
+}
+
+.btn-info {
+    background: linear-gradient(45deg, #17a2b8, #6f42c1);
+}
+
+.btn-danger {
+    background: linear-gradient(45deg, #dc3545, #e83e8c);
+}
+
+/* Stats Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 15px;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-card h4 {
+    color: #6c757d;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.stat-number {
+    color: #667eea;
+    font-size: 2rem;
+    font-weight: bold;
+    display: block;
+}
+
+.stat-text {
+    color: #495057;
+    font-size: 1rem;
+    display: block;
+}
+
+/* Connection Status */
+.connection-status {
+    margin-bottom: 3rem;
+}
+
+.connection-status h4 {
+    color: #333;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+}
+
+.connections-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+.connection-item {
+    background: white;
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    gap: 0.5rem;
+    transition: border-color 0.3s;
+}
+
+.connection-item:hover {
+    border-color: #667eea;
+}
+
+.connection-area {
+    font-weight: bold;
+    color: #333;
+}
+
+.connection-ip {
+    color: #6c757d;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+}
+
+.connection-status {
+    color: #28a745;
+    font-size: 0.9rem;
+    text-align: right;
+}
+
+.connection-files {
+    color: #667eea;
+    font-size: 0.9rem;
+    text-align: right;
+}
+
+/* Files Section */
+.files-section {
+    background: white;
+    padding: 3rem 0;
+}
+
+.files-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.files-header h3 {
+    color: #333;
+    font-size: 1.5rem;
+}
+
+.path-display {
+    background: #f8f9fa;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    border: 1px solid #dee2e6;
+}
+
+#currentPath {
+    font-family: 'Courier New', monospace;
+    color: #495057;
+}
+
+/* File Operations */
+.file-operations {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.view-controls {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.view-btn {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.view-btn.active,
+.view-btn:hover {
+    background: #667eea;
+    color: white;
+    border-color: #667eea;
+}
+
+.filter-controls {
+    display: flex;
+    gap: 1rem;
+}
+
+.filter-controls select {
+    padding: 0.5rem;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    background: white;
+}
+
+/* File Browser */
+.file-browser {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    min-height: 400px;
+}
+
+.folder-structure {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 1rem;
+    border: 1px solid #dee2e6;
+}
+
+.folder-structure h4 {
+    color: #333;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+
+.folder-tree {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.folder-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.folder-item:hover {
+    background: #e9ecef;
+}
+
+.folder-item.active {
+    background: #667eea;
+    color: white;
+}
+
+.sub-folder {
+    margin-left: 1rem;
+}
+
+.folder-icon {
+    font-size: 1rem;
+}
+
+.folder-name {
+    font-size: 0.9rem;
+}
+
+/* File List */
+.file-list-container {
+    background: white;
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.files-list {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.file-item {
+    display: grid;
+    grid-template-columns: auto 1fr auto auto auto;
+    gap: 1rem;
+    padding: 1rem;
+    border-bottom: 1px solid #f8f9fa;
+    align-items: center;
+    transition: background-color 0.3s;
+}
+
+.file-item:hover {
+    background: #f8f9fa;
+}
+
+.file-item:last-child {
+    border-bottom: none;
+}
+
+.file-icon {
+    font-size: 1.5rem;
+}
+
+.file-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.file-name {
+    font-weight: 500;
+    color: #333;
+}
+
+.file-details {
+    font-size: 0.8rem;
+    color: #6c757d;
+}
+
+.file-size {
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.file-date {
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.file-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.file-action-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 3px;
+    transition: background-color 0.3s;
+}
+
+.file-action-btn:hover {
+    background: #e9ecef;
+}
+
+/* Upload Area */
+.upload-area {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: 2px dashed #dee2e6;
+    border-radius: 15px;
+    padding: 2rem;
+    text-align: center;
+    margin-bottom: 3rem;
+    transition: all 0.3s;
+}
+
+.upload-area.dragover {
+    border-color: #667eea;
+    background: linear-gradient(135deg, #e7f1ff 0%, #d0e2ff 100%);
+}
+
+.upload-content h4 {
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.upload-content p {
+    color: #6c757d;
+    margin-bottom: 1rem;
+}
+
+.upload-options {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.upload-options select {
+    padding: 0.5rem;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    background: white;
+}
+
+/* Transfer Log */
+.transfer-log {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 1.5rem;
+    border: 1px solid #dee2e6;
+}
+
+.transfer-log h4 {
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.transfers-list {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.transfer-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    border-bottom: 1px solid #dee2e6;
+    font-size: 0.9rem;
+}
+
+.transfer-item:last-child {
+    border-bottom: none;
+}
+
+.transfer-file {
+    color: #333;
+    font-weight: 500;
+}
+
+.transfer-status {
+    color: #28a745;
+}
+
+.transfer-time {
+    color: #6c757d;
+}
+
+/* Footer */
+.footer {
+    background: #343a40;
+    color: white;
+    text-align: center;
+    padding: 2rem 0;
+    margin-top: 2rem;
+}
+
+.footer p {
+    margin: 0.5rem 0;
+    color: #adb5bd;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .file-browser {
+        grid-template-columns: 1fr;
+    }
+    
+    .folder-structure {
+        order: 2;
+    }
+    
+    .file-list-container {
+        order: 1;
+    }
+    
+    .file-item {
+        grid-template-columns: auto 1fr;
+        gap: 0.5rem;
+    }
+    
+    .file-size, .file-date, .file-actions {
+        display: none;
+    }
+    
+    .dashboard-header,
+    .files-header,
+    .file-operations {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .ftp-info {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .connections-grid {
+        grid-template-columns: 1fr;
+    }
+}

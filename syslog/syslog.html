@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SYSLOG - Centro Luna</title>
+    <link rel="stylesheet" href="syslog.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">
+                <a href="../index.html">🌙 Centro Luna</a>
+            </h1>
+            <nav class="nav">
+                <a href="../index.html">Inicio</a>
+                <a href="../ftp/ftp.html">FTP</a>
+                <a href="#logs">Logs</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-syslog">
+            <div class="container">
+                <h2>📝 Sistema SYSLOG</h2>
+                <p>Monitoreo centralizado de logs - Todas las áreas → Inventarios</p>
+                <div class="syslog-info">
+                    <span class="server-info">Servidor: 172.19.5.0/25 (Área 3 - Inventarios)</span>
+                    <span class="port-info">Puerto: 514 UDP</span>
+                    <span class="status-info">🟢 ACTIVO</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="syslog-dashboard">
+            <div class="container">
+                <div class="dashboard-header">
+                    <h3>Centro de Monitoreo</h3>
+                    <div class="controls">
+                        <button id="refreshLogs" class="btn">🔄 Actualizar</button>
+                        <button id="clearLogs" class="btn btn-danger">🗑️ Limpiar</button>
+                        <button id="exportLogs" class="btn btn-success">📤 Exportar</button>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h4>Total de Logs</h4>
+                        <span id="totalLogs" class="stat-number">0</span>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Logs Hoy</h4>
+                        <span id="logsToday" class="stat-number">0</span>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Última Actividad</h4>
+                        <span id="lastActivity" class="stat-text">-</span>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Área Más Activa</h4>
+                        <span id="mostActiveArea" class="stat-text">-</span>
+                    </div>
+                </div>
+
+                <div class="areas-status">
+                    <h4>Estado de las Áreas</h4>
+                    <div class="areas-grid">
+                        <div class="area-status" data-area="ventas">
+                            <span class="area-name">📊 Área 1 - Ventas</span>
+                            <span class="area-ip">172.19.0.0/22</span>
+                            <span class="area-status-indicator">🟢 Online</span>
+                            <span class="area-logs" id="ventas-logs">0 logs</span>
+                        </div>
+                        <div class="area-status" data-area="sesiones">
+                            <span class="area-name">🔮 Área 2 - Sesiones</span>
+                            <span class="area-ip">172.19.4.0/24</span>
+                            <span class="area-status-indicator">🟢 Online</span>
+                            <span class="area-logs" id="sesiones-logs">0 logs</span>
+                        </div>
+                        <div class="area-status" data-area="inventarios">
+                            <span class="area-name">📦 Área 3 - Inventarios</span>
+                            <span class="area-ip">172.19.5.0/25</span>
+                            <span class="area-status-indicator">🟢 Online</span>
+                            <span class="area-logs" id="inventarios-logs">0 logs</span>
+                        </div>
+                        <div class="area-status" data-area="servidores">
+                            <span class="area-name">🖥️ Área 4 - Servidores</span>
+                            <span class="area-ip">172.19.5.144/29</span>
+                            <span class="area-status-indicator">🟢 Online</span>
+                            <span class="area-logs" id="servidores-logs">0 logs</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="logs" class="logs-section">
+            <div class="container">
+                <div class="logs-header">
+                    <h3>Logs en Tiempo Real</h3>
+                    <div class="filter-controls">
+                        <select id="areaFilter">
+                            <option value="">Todas las áreas</option>
+                            <option value="Ventas">Ventas</option>
+                            <option value="Sesiones">Sesiones</option>
+                            <option value="Inventarios">Inventarios</option>
+                            <option value="Servidores">Servidores</option>
+                        </select>
+                        <select id="serviceFilter">
+                            <option value="">Todos los servicios</option>
+                            <option value="SISTEMA">Sistema</option>
+                            <option value="SYSLOG">SYSLOG</option>
+                            <option value="FTP">FTP</option>
+                            <option value="HTTP">HTTP</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="logs-container">
+                    <div id="logsDisplay" class="logs-display">
+                        <div class="log-entry sample">
+                            <span class="log-timestamp">2024-01-15 10:30:15</span>
+                            <span class="log-service syslog">SYSLOG</span>
+                            <span class="log-area">Inventarios</span>
+                            <span class="log-message">Sistema de logs iniciado correctamente</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="log-generator">
+                    <h4>Generar Log Manual</h4>
+                    <div class="log-form">
+                        <select id="manualService">
+                            <option value="SISTEMA">Sistema</option>
+                            <option value="SYSLOG">SYSLOG</option>
+                            <option value="FTP">FTP</option>
+                            <option value="HTTP">HTTP</option>
+                        </select>
+                        <select id="manualArea">
+                            <option value="Ventas">Ventas</option>
+                            <option value="Sesiones">Sesiones</option>
+                            <option value="Inventarios">Inventarios</option>
+                            <option value="Servidores">Servidores</option>
+                        </select>
+                        <input type="text" id="manualMessage" placeholder="Mensaje del log...">
+                        <button id="generateLog" class="btn">📝 Generar Log</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Centro Luna - Sistema SYSLOG</p>
+            <p>Equipo 3: Carmona Viana Israel • Cortes Buendia Martin</p>
+        </div>
+    </footer>
+
+    <script src="syslog.js"></script>
+</body>
+</html>

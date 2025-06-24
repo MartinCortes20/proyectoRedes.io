@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FTP - Centro Luna</title>
+    <link rel="stylesheet" href="ftp.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">
+                <a href="../index.html">🌙 Centro Luna</a>
+            </h1>
+            <nav class="nav">
+                <a href="../index.html">Inicio</a>
+                <a href="../syslog/syslog.html">SYSLOG</a>
+                <a href="#archivos">Archivos</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-ftp">
+            <div class="container">
+                <h2>📁 Sistema FTP</h2>
+                <p>Transferencia de archivos centralizada - Todas las áreas → Área 4</p>
+                <div class="ftp-info">
+                    <span class="server-info">Servidor: 172.19.5.144 (Área 4 - Servidores)</span>
+                    <span class="port-info">Puerto: 21 TCP</span>
+                    <span class="status-info">🟢 ACTIVO</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="ftp-dashboard">
+            <div class="container">
+                <div class="dashboard-header">
+                    <h3>Centro de Gestión de Archivos</h3>
+                    <div class="controls">
+                        <button id="refreshFiles" class="btn">🔄 Actualizar</button>
+                        <button id="uploadFile" class="btn btn-success">📤 Subir Archivo</button>
+                        <button id="createFolder" class="btn btn-info">📁 Nueva Carpeta</button>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h4>Total Archivos</h4>
+                        <span id="totalFiles" class="stat-number">0</span>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Espacio Usado</h4>
+                        <span id="usedSpace" class="stat-number">0 MB</span>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Transferencias Hoy</h4>
+                        <span id="transfersToday" class="stat-number">0</span>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Última Actividad</h4>
+                        <span id="lastTransfer" class="stat-text">-</span>
+                    </div>
+                </div>
+
+                <div class="connection-status">
+                    <h4>Estado de Conexiones FTP</h4>
+                    <div class="connections-grid">
+                        <div class="connection-item">
+                            <span class="connection-area">📊 Área 1 - Ventas</span>
+                            <span class="connection-ip">172.19.0.0/22</span>
+                            <span class="connection-status">🟢 Conectado</span>
+                            <span class="connection-files" id="ventas-files">0 archivos</span>
+                        </div>
+                        <div class="connection-item">
+                            <span class="connection-area">🔮 Área 2 - Sesiones</span>
+                            <span class="connection-ip">172.19.4.0/24</span>
+                            <span class="connection-status">🟢 Conectado</span>
+                            <span class="connection-files" id="sesiones-files">0 archivos</span>
+                        </div>
+                        <div class="connection-item">
+                            <span class="connection-area">📦 Área 3 - Inventarios</span>
+                            <span class="connection-ip">172.19.5.0/25</span>
+                            <span class="connection-status">🟢 Conectado</span>
+                            <span class="connection-files" id="inventarios-files">0 archivos</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="archivos" class="files-section">
+            <div class="container">
+                <div class="files-header">
+                    <h3>Explorador de Archivos</h3>
+                    <div class="path-display">
+                        <span id="currentPath">/centro_luna/</span>
+                    </div>
+                </div>
+
+                <div class="file-operations">
+                    <div class="view-controls">
+                        <button id="listView" class="view-btn active">📋 Lista</button>
+                        <button id="gridView" class="view-btn">🔲 Cuadrícula</button>
+                    </div>
+                    <div class="filter-controls">
+                        <select id="fileTypeFilter">
+                            <option value="">Todos los tipos</option>
+                            <option value="txt">Documentos (.txt)</option>
+                            <option value="pdf">PDF (.pdf)</option>
+                            <option value="csv">CSV (.csv)</option>
+                            <option value="json">JSON (.json)</option>
+                            <option value="log">Logs (.log)</option>
+                        </select>
+                        <select id="areaSourceFilter">
+                            <option value="">Todas las áreas</option>
+                            <option value="ventas">Ventas</option>
+                            <option value="sesiones">Sesiones</option>
+                            <option value="inventarios">Inventarios</option>
+                            <option value="servidores">Servidores</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="file-browser">
+                    <div class="folder-structure">
+                        <h4>📁 Estructura de Carpetas</h4>
+                        <div class="folder-tree">
+                            <div class="folder-item active" data-folder="root">
+                                <span class="folder-icon">📁</span>
+                                <span class="folder-name">centro_luna</span>
+                            </div>
+                            <div class="folder-item sub-folder" data-folder="ventas">
+                                <span class="folder-icon">📊</span>
+                                <span class="folder-name">ventas</span>
+                            </div>
+                            <div class="folder-item sub-folder" data-folder="sesiones">
+                                <span class="folder-icon">🔮</span>
+                                <span class="folder-name">sesiones</span>
+                            </div>
+                            <div class="folder-item sub-folder" data-folder="inventarios">
+                                <span class="folder-icon">📦</span>
+                                <span class="folder-name">inventarios</span>
+                            </div>
+                            <div class="folder-item sub-folder" data-folder="backups">
+                                <span class="folder-icon">💾</span>
+                                <span class="folder-name">backups</span>
+                            </div>
+                            <div class="folder-item sub-folder" data-folder="logs">
+                                <span class="folder-icon">📝</span>
+                                <span class="folder-name">logs</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="file-list-container">
+                        <div id="filesList" class="files-list">
+                            <!-- Los archivos se cargarán dinámicamente aquí -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-content">
+                        <h4>📤 Subir Archivos</h4>
+                        <p>Arrastra archivos aquí o haz clic para seleccionar</p>
+                        <input type="file" id="fileInput" multiple style="display: none;">
+                        <div class="upload-options">
+                            <select id="uploadDestination">
+                                <option value="ventas">📊 Ventas</option>
+                                <option value="sesiones">🔮 Sesiones</option>
+                                <option value="inventarios">📦 Inventarios</option>
+                                <option value="logs">📝 Logs</option>
+                            </select>
+                            <button id="selectFiles" class="btn">Seleccionar Archivos</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="transfer-log">
+                    <h4>📊 Registro de Transferencias</h4>
+                    <div id="transfersList" class="transfers-list">
+                        <!-- Las transferencias se mostrarán aquí -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Centro Luna - Sistema FTP</p>
+            <p>Equipo 3: Carmona Viana Israel • Cortes Buendia Martin</p>
+        </div>
+    </footer>
+
+    <script src="ftp.js"></script>
+</body>
+</html>

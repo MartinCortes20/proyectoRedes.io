@@ -133,6 +133,7 @@
             font-weight: bold;
             transition: all 0.3s ease;
             box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+            margin: 0 10px;
         }
 
         .cta-button:hover {
@@ -187,6 +188,243 @@
             display: block;
         }
 
+        /* Grid de protocolos mágicos */
+        .protocols-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .protocol-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .protocol-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s ease;
+            opacity: 0;
+        }
+
+        .protocol-card:hover::before {
+            animation: shimmer 1.5s ease-in-out;
+        }
+
+        .protocol-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: #ffd700;
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.4);
+        }
+
+        @keyframes shimmer {
+            0% { opacity: 0; transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            50% { opacity: 1; }
+            100% { opacity: 0; transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .protocol-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .protocol-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: white;
+            font-weight: bold;
+            font-size: 24px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .smtp-icon { 
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            animation: pulse-red 3s infinite;
+        }
+        .tftp-icon { 
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            animation: pulse-blue 3s infinite;
+        }
+        .syslog-icon { 
+            background: linear-gradient(45deg, #2ecc71, #27ae60);
+            animation: pulse-green 3s infinite;
+        }
+
+        @keyframes pulse-red {
+            0%, 100% { box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3); }
+            50% { box-shadow: 0 5px 25px rgba(231, 76, 60, 0.6); }
+        }
+
+        @keyframes pulse-blue {
+            0%, 100% { box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3); }
+            50% { box-shadow: 0 5px 25px rgba(52, 152, 219, 0.6); }
+        }
+
+        @keyframes pulse-green {
+            0%, 100% { box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3); }
+            50% { box-shadow: 0 5px 25px rgba(46, 204, 113, 0.6); }
+        }
+
+        .protocol-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #ffd700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .protocol-info {
+            margin-bottom: 1.5rem;
+        }
+
+        .info-item {
+            margin-bottom: 10px;
+            padding: 10px 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            border-left: 3px solid;
+        }
+
+        .smtp-card .info-item { border-left-color: #e74c3c; }
+        .tftp-card .info-item { border-left-color: #3498db; }
+        .syslog-card .info-item { border-left-color: #2ecc71; }
+
+        .info-label {
+            font-weight: bold;
+            color: #ffd700;
+            display: inline-block;
+            min-width: 80px;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: blink 2s infinite;
+        }
+
+        .status-active { background: #2ecc71; }
+        .status-inactive { background: #e74c3c; }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.3; }
+        }
+
+        .mystical-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .mystical-btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mystical-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transition: all 0.6s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .mystical-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-spell-smtp {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: white;
+        }
+
+        .btn-spell-tftp {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+        }
+
+        .btn-spell-syslog {
+            background: linear-gradient(45deg, #2ecc71, #27ae60);
+            color: white;
+        }
+
+        .mystical-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Orbe místico para logs */
+        .mystical-orb {
+            background: radial-gradient(circle at 30% 30%, rgba(255, 215, 0, 0.8), rgba(255, 215, 0, 0.3));
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+            margin-right: 10px;
+            animation: orbit 4s linear infinite;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+        }
+
+        @keyframes orbit {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.1); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        /* Cristal de energía */
+        .energy-crystal {
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(45deg, #9b59b6, #8e44ad);
+            transform: rotate(45deg);
+            display: inline-block;
+            margin-right: 10px;
+            animation: crystal-pulse 2s infinite;
+            box-shadow: 0 0 20px rgba(155, 89, 182, 0.5);
+        }
+
+        @keyframes crystal-pulse {
+            0%, 100% { transform: rotate(45deg) scale(1); opacity: 0.8; }
+            50% { transform: rotate(45deg) scale(1.1); opacity: 1; }
+        }
+
         /* Sistema de citas */
         .appointment-form {
             background: rgba(255, 255, 255, 0.1);
@@ -222,44 +460,115 @@
             color: rgba(255, 255, 255, 0.7);
         }
 
-        /* Panel de monitoreo SNMP */
-        .monitoring-panel {
+        /* Panel de logs místicos */
+        .mystical-logs {
             background: rgba(0, 0, 0, 0.8);
             border-radius: 15px;
             padding: 2rem;
             margin: 2rem 0;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            position: relative;
         }
 
-        .status-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .status-item {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 1rem;
-            border-radius: 10px;
-            text-align: center;
-            border-left: 4px solid #00ff00;
-        }
-
-        .status-item.warning {
-            border-left-color: #ffaa00;
-        }
-
-        .status-item.error {
-            border-left-color: #ff0000;
-        }
-
-        .status-value {
-            font-size: 1.5rem;
-            font-weight: bold;
+        .mystical-logs::before {
+            content: '✨';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background: #1a1a2e;
+            padding: 0 10px;
             color: #ffd700;
+            font-size: 1.2rem;
         }
 
-        /* Tienda online */
+        .log-container {
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 1rem;
+        }
+
+        .log-entry {
+            margin-bottom: 8px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            border-left: 3px solid;
+            animation: fadeIn 0.5s ease-in;
+            display: flex;
+            align-items: center;
+        }
+
+        .log-smtp { 
+            border-left-color: #e74c3c; 
+            background: rgba(231, 76, 60, 0.1);
+        }
+        .log-tftp { 
+            border-left-color: #3498db; 
+            background: rgba(52, 152, 219, 0.1);
+        }
+        .log-syslog { 
+            border-left-color: #2ecc71; 
+            background: rgba(46, 204, 113, 0.1);
+        }
+        .log-system { 
+            border-left-color: #ffd700; 
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Panel de monitoreo de red */
+        .network-topology {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .topology-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .segment {
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 2px solid;
+            background: rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .segment:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .segment-ventas { 
+            border-color: #f39c12; 
+            background: linear-gradient(135deg, rgba(243, 156, 18, 0.1), rgba(243, 156, 18, 0.05));
+        }
+        .segment-sesiones { 
+            border-color: #e74c3c; 
+            background: linear-gradient(135deg, rgba(231, 76, 60, 0.1), rgba(231, 76, 60, 0.05));
+        }
+        .segment-inventarios { 
+            border-color: #2ecc71; 
+            background: linear-gradient(135deg, rgba(46, 204, 113, 0.1), rgba(46, 204, 113, 0.05));
+        }
+        .segment-admin { 
+            border-color: #9b59b6; 
+            background: linear-gradient(135deg, rgba(155, 89, 182, 0.1), rgba(155, 89, 182, 0.05));
+        }
+
+        /* Productos místicos */
         .products-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -352,6 +661,10 @@
             .hero-content p {
                 font-size: 1.2rem;
             }
+
+            .protocols-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         /* Efectos especiales */
@@ -375,6 +688,16 @@
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-20px); }
         }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+            50% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        }
     </style>
 </head>
 <body>
@@ -391,10 +714,10 @@
             <ul class="nav-links">
                 <li><a href="#inicio">Inicio</a></li>
                 <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#protocolos">Protocolos</a></li>
                 <li><a href="#citas">Citas</a></li>
                 <li><a href="#tienda">Tienda</a></li>
-                <li><a href="#blog">Blog</a></li>
-                <li><a href="#monitoreo">Red</a></li>
+                <li><a href="#red">Red</a></li>
                 <li><a href="#contacto">Contacto</a></li>
             </ul>
         </nav>
@@ -404,8 +727,9 @@
     <section id="inicio" class="hero">
         <div class="hero-content">
             <h1>Centro Místico Luna Llena</h1>
-            <p>Descubre tu destino en el corazón de la Zona Rosa</p>
+            <p>Donde la magia y la tecnología se encuentran en armonía</p>
             <a href="#servicios" class="cta-button">Explora tu futuro</a>
+            <a href="#protocolos" class="cta-button">Protocolos Mágicos</a>
         </div>
     </section>
 
@@ -452,19 +776,114 @@
         </div>
     </section>
 
+    <!-- Protocolos Mágicos -->
+    <section id="protocolos" class="section">
+        <h2>🔮 Protocolos de Comunicación Mística</h2>
+        <p style="text-align: center; margin-bottom: 3rem; font-size: 1.2rem; opacity: 0.9;">
+            Nuestros servicios utilizan canales energéticos especializados para conectar dimensiones
+        </p>
+        
+        <div class="protocols-grid">
+            <!-- Protocolo SMTP - Mensajería Espiritual -->
+            <div class="protocol-card smtp-card">
+                <div class="protocol-header">
+                    <div class="protocol-icon smtp-icon">📧</div>
+                    <div class="protocol-title">SMTP - Mensajería Espiritual</div>
+                </div>
+                
+                <div class="protocol-info">
+                    <div class="info-item">
+                        <span class="info-label">Canal:</span> Puerto 25 (Dimensional)
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Función:</span> Trivial File Transfer Protocol
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Estado:</span> 
+                        <span class="status-indicator status-active"></span>Biblioteca Mística Activa
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Uso:</span> Intercambio de hechizos, recetas y conocimientos ancestrales
+                    </div>
+                </div>
+                
+                <div class="mystical-buttons">
+                    <button class="mystical-btn btn-spell-tftp" onclick="invokeSpell('tftp')">📖 Consultar Grimorio</button>
+                    <button class="mystical-btn btn-spell-tftp" onclick="showMysticFiles()">🗂️ Ver Archivos</button>
+                </div>
+            </div>
+            
+            <!-- Protocolo SYSLOG - Registro de Energías -->
+            <div class="protocol-card syslog-card">
+                <div class="protocol-header">
+                    <div class="protocol-icon syslog-icon">📋</div>
+                    <div class="protocol-title">SYSLOG - Registro de Energías</div>
+                </div>
+                
+                <div class="protocol-info">
+                    <div class="info-item">
+                        <span class="info-label">Canal:</span> Puerto 514 (Cósmico)
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Función:</span> System Logging Protocol
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Estado:</span> 
+                        <span class="status-indicator status-active"></span>Capturando Auras
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Uso:</span> Monitoreo de energías y eventos místicos en tiempo real
+                    </div>
+                </div>
+                
+                <div class="mystical-buttons">
+                    <button class="mystical-btn btn-spell-syslog" onclick="invokeSpell('syslog')">🔍 Escudriñar Auras</button>
+                    <button class="mystical-btn btn-spell-syslog" onclick="showMysticLogs()">📊 Ver Registros</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel de Logs Místicos -->
+        <div class="mystical-logs">
+            <h3>📜 Pergamino de Actividades Energéticas</h3>
+            <div class="log-container" id="mysticLogContainer">
+                <div class="log-entry log-system">
+                    <span class="mystical-orb"></span>
+                    [2025-06-23 15:30:01] 🌙 Portal dimensional abierto en 172.19.5.149
+                </div>
+                <div class="log-entry log-smtp">
+                    <span class="energy-crystal"></span>
+                    [2025-06-23 15:30:15] 📧 Mensaje espiritual enviado a plano astral via SMTP
+                </div>
+                <div class="log-entry log-tftp">
+                    <span class="mystical-orb"></span>
+                    [2025-06-23 15:30:32] 📚 Grimorio "Hechizos de Prosperidad" transferido via TFTP
+                </div>
+                <div class="log-entry log-syslog">
+                    <span class="energy-crystal"></span>
+                    [2025-06-23 15:30:48] 🔮 Energía positiva detectada en red de Inventarios
+                </div>
+                <div class="log-entry log-system">
+                    <span class="mystical-orb"></span>
+                    [2025-06-23 15:31:05] ✨ Cristales de red sincronizados con luna llena
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Sistema de Citas -->
     <section id="citas" class="section">
-        <h2>Agenda tu Consulta</h2>
+        <h2>Agenda tu Consulta Mística</h2>
         <div class="appointment-form">
-            <h3>Reserva tu sesión místical</h3>
+            <h3>🌟 Reserva tu sesión en el plano astral</h3>
             <form>
                 <div class="form-group">
                     <label for="nombre">Nombre completo:</label>
-                    <input type="text" id="nombre" name="nombre" placeholder="Tu nombre completo" required>
+                    <input type="text" id="nombre" name="nombre" placeholder="Tu nombre en este plano existencial" required>
                 </div>
                 <div class="form-group">
                     <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" placeholder="tu@email.com" required>
+                    <input type="email" id="email" name="email" placeholder="tu@email.com (para mensajes via SMTP mágico)" required>
                 </div>
                 <div class="form-group">
                     <label for="telefono">Teléfono:</label>
@@ -477,7 +896,7 @@
                 <div class="form-group">
                     <label for="servicio">Servicio deseado:</label>
                     <select id="servicio" name="servicio" required>
-                        <option value="">Selecciona un servicio</option>
+                        <option value="">Selecciona tu consulta mística</option>
                         <option value="tarot">Lectura de Tarot - $450</option>
                         <option value="astral">Carta Astral - $650</option>
                         <option value="terapia">Terapia Energética - $550</option>
@@ -493,30 +912,30 @@
                 <div class="form-group">
                     <label for="hora">Hora preferida:</label>
                     <select id="hora" name="hora" required>
-                        <option value="">Selecciona horario</option>
-                        <option value="09:00">9:00 AM</option>
-                        <option value="10:00">10:00 AM</option>
-                        <option value="11:00">11:00 AM</option>
-                        <option value="12:00">12:00 PM</option>
-                        <option value="14:00">2:00 PM</option>
-                        <option value="15:00">3:00 PM</option>
-                        <option value="16:00">4:00 PM</option>
-                        <option value="17:00">5:00 PM</option>
-                        <option value="18:00">6:00 PM</option>
+                        <option value="">Selecciona el momento energético</option>
+                        <option value="09:00">9:00 AM - Aurora Dorada</option>
+                        <option value="10:00">10:00 AM - Despertar Solar</option>
+                        <option value="11:00">11:00 AM - Fuerza Creciente</option>
+                        <option value="12:00">12:00 PM - Poder Meridiano</option>
+                        <option value="14:00">2:00 PM - Energía Renovada</option>
+                        <option value="15:00">3:00 PM - Claridad Mental</option>
+                        <option value="16:00">4:00 PM - Sabiduría Dorada</option>
+                        <option value="17:00">5:00 PM - Transformación</option>
+                        <option value="18:00">6:00 PM - Portal Crepuscular</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="comentarios">Comentarios adicionales:</label>
-                    <textarea id="comentarios" name="comentarios" rows="4" placeholder="Cuéntanos sobre tu consulta o alguna pregunta específica..."></textarea>
+                    <textarea id="comentarios" name="comentarios" rows="4" placeholder="Describe tu consulta o pregunta específica para los astros..."></textarea>
                 </div>
-                <button type="submit" class="cta-button">Reservar Cita</button>
+                <button type="submit" class="cta-button">🌙 Reservar Cita Mística</button>
             </form>
         </div>
     </section>
 
     <!-- Tienda Online -->
     <section id="tienda" class="section">
-        <h2>Tienda Esotérica</h2>
+        <h2>🛍️ Tienda Esotérica Digital</h2>
         <div class="products-grid">
             <div class="product-card">
                 <div class="product-image">💎</div>
@@ -569,83 +988,77 @@
         </div>
     </section>
 
-    <!-- Blog Místico -->
-    <section id="blog" class="section">
-        <h2>Blog Místico</h2>
-        <div class="blog-posts">
-            <article class="blog-post">
-                <div class="blog-date">20 de Junio, 2025</div>
-                <h3>Luna Llena de Junio: Tiempo de Manifestación</h3>
-                <p>La luna llena de este mes trae energías poderosas para manifestar nuestros deseos más profundos. Conoce los rituales más efectivos para aprovechar esta energía cósmica y transformar tu realidad.</p>
-            </article>
-            <article class="blog-post">
-                <div class="blog-date">18 de Junio, 2025</div>
-                <h3>Los Cristales Más Poderosos para la Protección</h3>
-                <p>Descubre qué cristales son más efectivos para protegerte de energías negativas y cómo usarlos correctamente en tu día a día. La obsidiana, el cuarzo negro y la turmalina son tus mejores aliados.</p>
-            </article>
-            <article class="blog-post">
-                <div class="blog-date">15 de Junio, 2025</div>
-                <h3>Cómo Interpretar los Arcanos Mayores del Tarot</h3>
-                <p>Guía completa para principiantes sobre el significado de los 22 arcanos mayores. Aprende a leer las cartas y descifrar los mensajes que el universo tiene para ti.</p>
-            </article>
-        </div>
-    </section>
-
-    <!-- Panel de Monitoreo SNMP -->
-    <section id="monitoreo" class="section">
-        <h2>Panel de Monitoreo de Red</h2>
-        <div class="monitoring-panel">
-            <h3>Estado de la Infraestructura de Red</h3>
-            <div class="status-grid">
-                <div class="status-item">
-                    <h4>Router Luna (Central)</h4>
-                    <div class="status-value">✅ ONLINE</div>
-                    <p>CPU: 45% | Memoria: 62%</p>
+    <!-- Red Mística - Topología -->
+    <section id="red" class="section">
+        <h2>🌐 Red de Energía Cósmica</h2>
+        <div class="network-topology">
+            <h3>🔮 Mapa de la Infraestructura Mística</h3>
+            <p style="text-align: center; margin-bottom: 2rem; opacity: 0.9;">
+                Nuestra red conecta diferentes planos energéticos para brindarte la mejor experiencia espiritual
+            </p>
+            
+            <div class="topology-info">
+                <div class="segment segment-ventas">
+                    <h3>💰 DIMENSIÓN VENTAS</h3>
+                    <p><strong>Plano:</strong> 172.19.0.0/22</p>
+                    <p><strong>Cristales:</strong> PC1, PC2, PC3</p>
+                    <p><strong>Energía:</strong> Prosperidad y Abundancia</p>
+                    <p><strong>Acceso:</strong> Limitado por barreras etéricas</p>
                 </div>
-                <div class="status-item">
-                    <h4>Router Admin</h4>
-                    <div class="status-value">✅ ONLINE</div>
-                    <p>CPU: 38% | Memoria: 54%</p>
+                
+                <div class="segment segment-sesiones">
+                    <h3>🧘 DIMENSIÓN SESIONES</h3>
+                    <p><strong>Plano:</strong> 172.19.4.0/24</p>
+                    <p><strong>Cristales:</strong> PC5, PC6, PC7, PC8, PC9</p>
+                    <p><strong>Energía:</strong> Meditación y Sabiduría</p>
+                    <p><strong>Acceso:</strong> Portal restringido</p>
                 </div>
-                <div class="status-item warning">
-                    <h4>Router Ventas</h4>
-                    <div class="status-value">⚠️ WARNING</div>
-                    <p>CPU: 78% | Memoria: 85%</p>
+                
+                <div class="segment segment-inventarios">
+                    <h3>📦 DIMENSIÓN INVENTARIOS</h3>
+                    <p><strong>Plano:</strong> 172.19.5.0/25</p>
+                    <p><strong>Cristales:</strong> PC11, PC12</p>
+                    <p><strong>Energía:</strong> Organización y Control</p>
+                    <p><strong>Acceso:</strong> Solo conexiones TCP desde Ventas</p>
                 </div>
-                <div class="status-item">
-                    <h4>Router Sesiones</h4>
-                    <div class="status-value">✅ ONLINE</div>
-                    <p>CPU: 42% | Memoria: 58%</p>
-                </div>
-                <div class="status-item">
-                    <h4>Router Inventarios</h4>
-                    <div class="status-value">✅ ONLINE</div>
-                    <p>CPU: 35% | Memoria: 48%</p>
-                </div>
-                <div class="status-item">
-                    <h4>Servidor DNS/DHCP</h4>
-                    <div class="status-value">✅ ONLINE</div>
-                    <p>VM1: 192.168.10.10</p>
-                </div>
-                <div class="status-item">
-                    <h4>Servidor Web/FTP</h4>
-                    <div class="status-value">✅ ONLINE</div>
-                    <p>VM2: 192.168.10.20</p>
-                </div>
-                <div class="status-item">
-                    <h4>Usuarios Conectados</h4>
-                    <div class="status-value">47</div>
-                    <p>DHCP Activo: 32 IPs</p>
+                
+                <div class="segment segment-admin">
+                    <h3>🛡️ SANCTUM SANCTORUM</h3>
+                    <p><strong>Plano:</strong> 172.19.5.144/30</p>
+                    <p><strong>Servidor:</strong> 172.19.5.149 (Portal Principal)</p>
+                    <p><strong>Servicios:</strong> HTTP, SMTP, TFTP, SYSLOG</p>
+                    <p><strong>Poder:</strong> Máximo nivel energético</p>
                 </div>
             </div>
-            
-            <div style="margin-top: 2rem;">
-                <h4>Últimas Alertas SNMP</h4>
-                <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 10px; margin-top: 1rem;">
-                    <p>🟡 15:23 - Router Ventas: CPU usage above 75%</p>
-                    <p>🟢 14:45 - Router Inventarios: Interface Fa0/1 is UP</p>
-                    <p>🟢 14:12 - DHCP Server: Pool VLAN20 renewed 5 leases</p>
-                    <p>🟢 13:58 - DNS Server: Resolved 234 queries in last hour</p>
+
+            <div style="margin-top: 2rem; background: rgba(255, 215, 0, 0.1); padding: 1.5rem; border-radius: 15px;">
+                <h4>⚡ Estado de los Canales Energéticos</h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem;">🌕</div>
+                        <div><strong>Router Luna</strong></div>
+                        <div style="color: #2ecc71;">✅ Energía Plena</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem;">💰</div>
+                        <div><strong>Router Ventas</strong></div>
+                        <div style="color: #f39c12;">⚠️ Flujo Variable</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem;">🧘</div>
+                        <div><strong>Router Sesiones</strong></div>
+                        <div style="color: #2ecc71;">✅ En Armonía</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem;">📦</div>
+                        <div><strong>Router Inventarios</strong></div>
+                        <div style="color: #2ecc71;">✅ Estable</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem;">🛡️</div>
+                        <div><strong>Router Admin</strong></div>
+                        <div style="color: #2ecc71;">✅ Protegido</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -653,31 +1066,32 @@
 
     <!-- Contacto -->
     <section id="contacto" class="section">
-        <h2>Visítanos</h2>
+        <h2>🏛️ Visítanos en el Plano Físico</h2>
         <div class="contact-info">
             <div>
-                <h3>📍 Ubicación</h3>
+                <h3>📍 Ubicación Dimensional</h3>
                 <p>Av. Reforma 222, Local 15<br>
                 Zona Rosa, Cuauhtémoc<br>
                 Ciudad de México, CDMX 06600</p>
             </div>
             <div>
-                <h3>📞 Contacto</h3>
+                <h3>📞 Canales de Comunicación</h3>
                 <p>Teléfono: 55-5555-LUNA (5862)<br>
                 WhatsApp: 55-1234-5678<br>
-                Email: info@lunallena.com</p>
+                Email: info@lunallena.com (via SMTP)</p>
             </div>
             <div>
-                <h3>🕐 Horarios</h3>
+                <h3>🕐 Horarios de Apertura Portal</h3>
                 <p>Lunes a Viernes: 10:00 AM - 8:00 PM<br>
                 Sábados: 9:00 AM - 9:00 PM<br>
                 Domingos: 11:00 AM - 7:00 PM</p>
             </div>
             <div>
-                <h3>🌐 Servicios de Red</h3>
-                <p>FTP: ftp.lunallena.com<br>
-                DNS: ns1.lunallena.com<br>
-                SNMP: monitor.lunallena.com</p>
+                <h3>🌐 Servicios de Red Mística</h3>
+                <p>Portal HTTP: lunallena.com<br>
+                Grimorio TFTP: archivos.lunallena.com<br>
+                Mensajes SMTP: correo.lunallena.com<br>
+                Registros SYSLOG: logs.lunallena.com</p>
             </div>
         </div>
     </section>
@@ -686,10 +1100,10 @@
     <footer>
         <div class="footer-content">
             <p>&copy; 2025 Centro Místico Luna Llena. Todos los derechos reservados.</p>
-            <p>Zona Rosa, CDMX | Proyecto de Red Empresarial</p>
+            <p>Zona Rosa, CDMX | Donde la Tecnología y la Magia Convergen</p>
             <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.7;">
-                Servicios de Red: DNS (lunallena.com) | DHCP Automático | SNMP Monitoring | 
-                FTP Server | SYSLOG Centralizado | Infraestructura VLSM con 5 Routers
+                🔮 Servicios de Red Mística: DNS (lunallena.com) | DHCP Automático | SNMP Monitoring | 
+                SMTP Messages | TFTP Grimorio | SYSLOG Energético | Infraestructura VLSM con 5 Routers Cósmicos
             </p>
         </div>
     </footer>
@@ -698,7 +1112,7 @@
         // Crear estrellas animadas
         function createStars() {
             const starsContainer = document.getElementById('stars');
-            const numberOfStars = 100;
+            const numberOfStars = 150;
             
             for (let i = 0; i < numberOfStars; i++) {
                 const star = document.createElement('div');
@@ -724,90 +1138,103 @@
             });
         });
 
-        // Formulario de citas
-        document.querySelector('form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('¡Tu cita ha sido registrada! Te contactaremos pronto para confirmar los detalles. ¡Gracias por confiar en Luna Llena! 🌙✨');
-        });
+        // Funciones de los protocolos místicos
+        function invokeSpell(protocol) {
+            const spells = {
+                smtp: {
+                    name: "📧 Hechizo de Mensajería Espiritual",
+                    action: "Enviando mensaje al plano astral...",
+                    success: "✨ Mensaje entregado exitosamente a los guías espirituales"
+                },
+                tftp: {
+                    name: "📚 Invocación del Grimorio Ancestral",
+                    action: "Consultando la biblioteca de sabiduría...",
+                    success: "🔮 Conocimiento ancestral transferido a tu aura"
+                },
+                syslog: {
+                    name: "🔍 Escrutinio de Energías Cósmicas",
+                    action: "Escaneando el campo energético...",
+                    success: "⚡ Registro energético actualizado en el akasha"
+                }
+            };
 
-        // Simulación de datos SNMP en tiempo real
-        function updateMonitoring() {
-            const cpuElements = document.querySelectorAll('.status-item p');
+            const spell = spells[protocol];
+            addMysticLog(`🌟 Iniciando ${spell.name}`);
             
-            // Simular cambios en CPU y memoria
-            cpuElements.forEach((element, index) => {
-                if (element.textContent.includes('CPU:')) {
-                    const baseCpu = [45, 38, 78, 42, 35, 25, 18];
-                    const baseMemory = [62, 54, 85, 58, 48, 45, 32];
-                    
-                    if (index < baseCpu.length) {
-                        const cpuVariation = Math.floor(Math.random() * 10) - 5;
-                        const memoryVariation = Math.floor(Math.random() * 8) - 4;
-                        
-                        const newCpu = Math.max(0, Math.min(100, baseCpu[index] + cpuVariation));
-                        const newMemory = Math.max(0, Math.min(100, baseMemory[index] + memoryVariation));
-                        
-                        element.textContent = `CPU: ${newCpu}% | Memoria: ${newMemory}%`;
-                        
-                        // Actualizar estado visual según CPU
-                        const statusItem = element.closest('.status-item');
-                        statusItem.className = 'status-item';
-                        if (newCpu > 75) {
-                            statusItem.classList.add('warning');
-                            statusItem.querySelector('.status-value').innerHTML = '⚠️ WARNING';
-                        } else if (newCpu > 90) {
-                            statusItem.classList.add('error');
-                            statusItem.querySelector('.status-value').innerHTML = '❌ ERROR';
-                        } else {
-                            statusItem.querySelector('.status-value').innerHTML = '✅ ONLINE';
-                        }
-                    }
-                }
-            });
+            setTimeout(() => {
+                addMysticLog(`⏳ ${spell.action}`);
+            }, 1000);
             
-            // Actualizar contador de usuarios
-            const usersElement = document.querySelector('.status-item:last-child .status-value');
-            if (usersElement && usersElement.textContent !== '✅ ONLINE' && usersElement.textContent !== '⚠️ WARNING') {
-                const currentUsers = parseInt(usersElement.textContent) || 47;
-                const variation = Math.floor(Math.random() * 6) - 3;
-                const newUsers = Math.max(20, Math.min(80, currentUsers + variation));
-                usersElement.textContent = newUsers.toString();
-                
-                const dhcpElement = usersElement.nextElementSibling;
-                if (dhcpElement) {
-                    dhcpElement.textContent = `DHCP Activo: ${Math.floor(newUsers * 0.68)} IPs`;
-                }
+            setTimeout(() => {
+                addMysticLog(`✅ ${spell.success}`);
+            }, 2500);
+        }
+
+        function showMysticConfig(protocol) {
+            const configs = {
+                smtp: "📜 Pergamino SMTP: Servidor astral configurado en puerto 25\n🔮 Encriptación mística: SSL/TLS habilitado\n⭐ Destinatario: guias.espirituales@cosmos.universe",
+                tftp: "📚 Configuración Grimorio: Puerto 69 abierto al éter\n🗂️ Directorio: /srv/grimorio/conocimiento_ancestral/\n🔐 Permisos: Solo lectura para aprendices",
+                syslog: "📋 Registro Energético: Puerto 514 capturando auras\n🌌 Facilidad: local0 para energías cósmicas\n📊 Nivel: informational y superior"
+            };
+            
+            addMysticLog("📜 Mostrando configuración mística...");
+            setTimeout(() => {
+                alert(configs[protocol]);
+            }, 500);
+        }
+
+        function showMysticFiles() {
+            addMysticLog("📚 Accediendo al grimorio digital...");
+            setTimeout(() => {
+                addMysticLog("📖 Archivos disponibles: hechizos_amor.txt, ritual_prosperidad.cfg");
+                addMysticLog("🔮 pocion_proteccion.recipe, invocacion_luna_llena.spell");
+                addMysticLog("⭐ manual_lectura_tarot.pdf, cristales_energia.guide");
+            }, 1000);
+        }
+
+        function showMysticLogs() {
+            addMysticLog("🔍 Consultando registros del akasha...");
+            setTimeout(() => {
+                addMysticLog("📊 47 almas conectadas a la red mística");
+                addMysticLog("⚡ Nivel energético: 94% de capacidad lunar");
+                addMysticLog("🌙 Última sincronización astral: hace 3 minutos");
+            }, 800);
+        }
+
+        // Agregar entradas al log místico
+        function addMysticLog(message) {
+            const logContainer = document.getElementById('mysticLogContainer');
+            const timestamp = new Date().toLocaleString();
+            const logEntry = document.createElement('div');
+            
+            // Determinar tipo de log
+            let logClass = 'log-system';
+            let icon = '<span class="mystical-orb"></span>';
+            
+            if (message.includes('SMTP') || message.includes('📧') || message.includes('mensaje')) {
+                logClass = 'log-smtp';
+                icon = '<span class="energy-crystal"></span>';
+            } else if (message.includes('TFTP') || message.includes('📚') || message.includes('grimorio')) {
+                logClass = 'log-tftp';
+                icon = '<span class="mystical-orb"></span>';
+            } else if (message.includes('SYSLOG') || message.includes('🔍') || message.includes('energético')) {
+                logClass = 'log-syslog';
+                icon = '<span class="energy-crystal"></span>';
+            }
+            
+            logEntry.className = `log-entry ${logClass}`;
+            logEntry.innerHTML = `${icon} [${timestamp}] ${message}`;
+            
+            logContainer.appendChild(logEntry);
+            logContainer.scrollTop = logContainer.scrollHeight;
+            
+            // Mantener solo los últimos 10 logs
+            while (logContainer.children.length > 10) {
+                logContainer.removeChild(logContainer.firstChild);
             }
         }
 
-        // Inicializar página
-        document.addEventListener('DOMContentLoaded', function() {
-            createStars();
-            
-            // Actualizar monitoreo cada 5 segundos
-            setInterval(updateMonitoring, 5000);
-            
-            // Efecto de parallax en la luna
-            window.addEventListener('scroll', function() {
-                const moon = document.querySelector('.moon');
-                const scrolled = window.pageYOffset;
-                const rate = scrolled * -0.5;
-                moon.style.transform = `translateY(${rate}px)`;
-            });
-        });
-
-        // Efectos hover para las cards
-        document.querySelectorAll('.service-card, .product-card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-10px) scale(1.02)';
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0) scale(1)';
-            });
-        });
-
-        // Validación del formulario mejorada
+        // Formulario de citas mejorado
         document.querySelector('form').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -818,74 +1245,79 @@
             const hora = document.getElementById('hora').value;
             
             if (!nombre || !email || !servicio || !fecha || !hora) {
-                alert('⚠️ Por favor completa todos los campos obligatorios');
+                alert('⚠️ Por favor completa todos los campos para abrir el portal');
                 return;
             }
             
-            // Validar fecha no sea en el pasado
+            // Validar fecha futura
             const selectedDate = new Date(fecha);
             const today = new Date();
             today.setHours(0, 0, 0, 0);
             
             if (selectedDate < today) {
-                alert('⚠️ La fecha seleccionada debe ser futura');
+                alert('⚠️ No podemos viajar al pasado, selecciona una fecha futura');
                 return;
             }
             
-            // Simular envío exitoso
-            const servicioText = document.querySelector(`option[value="${servicio}"]`).textContent;
-            alert(`🌙 ¡Cita confirmada! 
+            // Simular envío via SMTP
+            addMysticLog('📧 Enviando cita mística via protocolo SMTP...');
             
+            setTimeout(() => {
+                const servicioText = document.querySelector(`option[value="${servicio}"]`).textContent;
+                const horaText = document.querySelector(`option[value="${hora}"]`).textContent;
+                
+                alert(`🌙 ¡Portal de cita activado! 
+                
 Estimado(a) ${nombre},
-Tu consulta de ${servicioText} ha sido registrada para el ${fecha} a las ${hora}.
+Tu consulta de ${servicioText} ha sido registrada en el akasha para:
+📅 ${fecha} 
+⏰ ${horaText}
 
-Te contactaremos a ${email} para confirmar los detalles.
+Se ha enviado una confirmación energética a ${email} via SMTP mágico.
+Los cristales de comunicación vibrarán cuando sea momento de tu sesión.
 
-¡Gracias por confiar en Centro Místico Luna Llena! ✨`);
-            
-            // Limpiar formulario
-            this.reset();
+¡Gracias por confiar en Centro Místico Luna Llena! ✨🔮`);
+                
+                addMysticLog(`✅ Cita confirmada para ${nombre} via SMTP mágico`);
+                this.reset();
+            }, 2000);
         });
 
-        // Animación de scroll reveal para secciones
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+        // Simulación de actividad de red en tiempo real
+        function simulateNetworkActivity() {
+            const activities = [
+                '🌕 Heartbeat lunar recibido del Router Central',
+                '📚 Backup de grimorio realizado via TFTP',
+                '📊 Log de energía positiva almacenado via SYSLOG',
+                '📧 Notificación astral enviada via SMTP',
+                '⚡ Nueva conexión establecida desde dimensión de Ventas',
+                '🔮 Cristal de red sincronizado con fase lunar',
+                '✨ Aura de cliente protegida por firewall místico',
+                '🌟 Predicción astrológica procesada exitosamente',
+                '🧘 Meditación grupal detectada en red de Sesiones',
+                '💎 Energía de cristales balanceada automáticamente'
+            ];
+            
+            const randomActivity = activities[Math.floor(Math.random() * activities.length)];
+            addMysticLog(randomActivity);
+        }
 
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
+        // Efectos hover mejorados para las cards
+        document.querySelectorAll('.service-card, .product-card, .protocol-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+                
+                // Efecto especial para protocol cards
+                if (this.classList.contains('protocol-card')) {
+                    this.style.boxShadow = '0 20px 40px rgba(255, 215, 0, 0.4)';
                 }
             });
-        }, observerOptions);
-
-        // Aplicar animación a todas las secciones
-        document.querySelectorAll('.section').forEach(section => {
-            section.style.opacity = '0';
-            section.style.transform = 'translateY(50px)';
-            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(section);
-        });
-
-        // Contador animado para estadísticas
-        function animateCounter(element, target, duration = 2000) {
-            let start = 0;
-            const increment = target / (duration / 16);
             
-            function updateCounter() {
-                start += increment;
-                if (start < target) {
-                    element.textContent = Math.floor(start);
-                    requestAnimationFrame(updateCounter);
-                } else {
-                    element.textContent = target;
-                }
-            }
-            updateCounter();
-        }
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+                this.style.boxShadow = '';
+            });
+        });
 
         // Easter egg: Click en la luna
         document.querySelector('.moon').addEventListener('click', function() {
@@ -894,18 +1326,24 @@ Te contactaremos a ${email} para confirmar los detalles.
                 this.style.animation = 'float 6s ease-in-out infinite';
             }, 2000);
             
-            // Mostrar mensaje místico
+            // Activar todos los protocolos
+            addMysticLog('🌙 ¡LUNA LLENA ACTIVADA! Todos los protocolos cósmicos sincronizados');
+            
+            setTimeout(() => invokeSpell('smtp'), 500);
+            setTimeout(() => invokeSpell('tftp'), 1500);
+            setTimeout(() => invokeSpell('syslog'), 2500);
+            
+            // Mostrar mensaje místico especial
             const messages = [
-                '🔮 "El universo conspira a tu favor"',
-                '✨ "Tu energía atrae abundancia"', 
-                '🌙 "Los astros se alinean para ti"',
-                '⭐ "Confía en tu intuición"',
-                '🌟 "Todo llega en el momento perfecto"'
+                '🔮 "Los protocolos cósmicos se han alineado perfectamente"',
+                '✨ "La red mística vibra con energía de luna llena"', 
+                '🌙 "SMTP, TFTP y SYSLOG danzan en armonía universal"',
+                '⭐ "Tu click ha despertado el poder de la tecnología sagrada"',
+                '🌟 "La magia y la red se fusionan en este momento perfecto"'
             ];
             
             const randomMessage = messages[Math.floor(Math.random() * messages.length)];
             
-            // Crear elemento de mensaje flotante
             const messageDiv = document.createElement('div');
             messageDiv.textContent = randomMessage;
             messageDiv.style.cssText = `
@@ -913,39 +1351,378 @@ Te contactaremos a ${email} para confirmar los detalles.
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
-                background: rgba(255, 215, 0, 0.9);
+                background: linear-gradient(45deg, #ffd700, #ffed4e);
                 color: #1a1a2e;
-                padding: 1rem 2rem;
+                padding: 2rem 3rem;
                 border-radius: 25px;
                 font-weight: bold;
                 z-index: 1000;
-                box-shadow: 0 10px 30px rgba(255, 215, 0, 0.5);
-                animation: fadeInOut 3s ease-in-out;
+                box-shadow: 0 20px 60px rgba(255, 215, 0, 0.8);
+                animation: fadeInOut 4s ease-in-out;
+                text-align: center;
+                max-width: 80%;
+                font-size: 1.2rem;
             `;
             
             document.body.appendChild(messageDiv);
             
             setTimeout(() => {
-                document.body.removeChild(messageDiv);
-            }, 3000);
+                if (document.body.contains(messageDiv)) {
+                    document.body.removeChild(messageDiv);
+                }
+            }, 4000);
         });
 
-        // CSS adicional para animaciones
-        const additionalCSS = `
-            @keyframes spin {
-                from { transform: rotate(0deg); }
-                to { transform: rotate(360deg); }
-            }
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            createStars();
             
-            @keyframes fadeInOut {
-                0%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
-                50% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+            // Actividad de red cada 8 segundos
+            setInterval(simulateNetworkActivity, 8000);
+            
+            // Efecto parallax mejorado
+            window.addEventListener('scroll', function() {
+                const moon = document.querySelector('.moon');
+                const scrolled = window.pageYOffset;
+                const rate = scrolled * -0.3;
+                moon.style.transform = `translateY(${rate}px)`;
+            });
+            
+            // Animación de scroll reveal para secciones
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Aplicar animación a todas las secciones
+            document.querySelectorAll('.section').forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(50px)';
+                section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(section);
+            });
+
+            // Log inicial del sistema
+            addMysticLog('🌙 Portal dimensional iniciado en 172.19.5.149');
+            addMysticLog('✨ Servicios místicos activados: HTTP, SMTP, TFTP, SYSLOG');
+            addMysticLog('🔮 Red cósmica sincronizada con energía lunar');
+        });
+
+        // Efectos de partículas en hover de botones
+        document.querySelectorAll('.mystical-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                // Crear efecto de partículas
+                for (let i = 0; i < 6; i++) {
+                    const particle = document.createElement('div');
+                    particle.style.cssText = `
+                        position: fixed;
+                        width: 4px;
+                        height: 4px;
+                        background: #ffd700;
+                        border-radius: 50%;
+                        pointer-events: none;
+                        z-index: 1000;
+                        left: ${e.clientX}px;
+                        top: ${e.clientY}px;
+                        animation: particle-burst 1s ease-out forwards;
+                    `;
+                    
+                    const angle = (Math.PI * 2 * i) / 6;
+                    const velocity = 50;
+                    const vx = Math.cos(angle) * velocity;
+                    const vy = Math.sin(angle) * velocity;
+                    
+                    particle.style.setProperty('--vx', vx + 'px');
+                    particle.style.setProperty('--vy', vy + 'px');
+                    
+                    document.body.appendChild(particle);
+                    
+                    setTimeout(() => {
+                        if (document.body.contains(particle)) {
+                            document.body.removeChild(particle);
+                        }
+                    }, 1000);
+                }
+            });
+        });
+
+        // CSS adicional para animaciones de partículas
+        const particleCSS = `
+            @keyframes particle-burst {
+                0% {
+                    transform: translate(0, 0) scale(1);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translate(var(--vx), var(--vy)) scale(0);
+                    opacity: 0;
+                }
             }
         `;
         
-        const styleSheet = document.createElement('style');
-        styleSheet.textContent = additionalCSS;
-        document.head.appendChild(styleSheet);
+        const particleStyleSheet = document.createElement('style');
+        particleStyleSheet.textContent = particleCSS;
+        document.head.appendChild(particleStyleSheet);
+
+        // Funcionalidad de monitoreo en tiempo real
+        function updateNetworkStatus() {
+            // Simular cambios en el estado de la red
+            const segments = document.querySelectorAll('.segment');
+            
+            segments.forEach(segment => {
+                // Pequeña probabilidad de cambio de estado
+                if (Math.random() < 0.1) {
+                    const currentBorder = segment.style.borderColor;
+                    segment.style.borderColor = '#ffd700';
+                    segment.style.boxShadow = '0 0 20px rgba(255, 215, 0, 0.5)';
+                    
+                    setTimeout(() => {
+                        segment.style.borderColor = '';
+                        segment.style.boxShadow = '';
+                    }, 2000);
+                }
+            });
+        }
+
+        // Actualizar estado de red cada 10 segundos
+        setInterval(updateNetworkStatus, 10000);
+
+        // Sonidos místicos (comentado para no molestar, pero funcional)
+        function playMysticSound(type) {
+            // Crear contexto de audio para efectos sonoros simples
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            
+            const frequencies = {
+                smtp: 440,  // A4
+                tftp: 523,  // C5
+                syslog: 659, // E5
+                success: 880 // A5
+            };
+            
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.setValueAtTime(frequencies[type] || 440, audioContext.currentTime);
+            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+            
+            oscillator.start();
+            oscillator.stop(audioContext.currentTime + 0.3);
+        }
+
+        // Función para mostrar estadísticas de red
+        function showNetworkStats() {
+            const stats = {
+                packets_sent: Math.floor(Math.random() * 10000) + 50000,
+                packets_received: Math.floor(Math.random() * 10000) + 48000,
+                bandwidth_usage: Math.floor(Math.random() * 30) + 60,
+                active_connections: Math.floor(Math.random() * 20) + 30,
+                uptime: "99.7%"
+            };
+            
+            addMysticLog(`📊 Estadísticas de Red Mística:`);
+            addMysticLog(`📤 Paquetes enviados: ${stats.packets_sent.toLocaleString()}`);
+            addMysticLog(`📥 Paquetes recibidos: ${stats.packets_received.toLocaleString()}`);
+            addMysticLog(`⚡ Uso de ancho de banda: ${stats.bandwidth_usage}%`);
+            addMysticLog(`🔗 Conexiones activas: ${stats.active_connections}`);
+            addMysticLog(`⏱️ Tiempo de actividad: ${stats.uptime}`);
+        }
+
+        // Ejecutar estadísticas cada 30 segundos
+        setInterval(showNetworkStats, 30000);
+
+        // Efecto de typing para el hero
+        function typeWriter(element, text, speed = 100) {
+            element.innerHTML = '';
+            let i = 0;
+            
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            
+            type();
+        }
+
+        // Aplicar efecto typing al cargar la página
+        setTimeout(() => {
+            const heroTitle = document.querySelector('.hero-content h1');
+            const originalText = heroTitle.textContent;
+            typeWriter(heroTitle, originalText, 80);
+        }, 1000);
+
+        // Validación avanzada del formulario
+        function validateMysticForm() {
+            const email = document.getElementById('email').value;
+            const telefono = document.getElementById('telefono').value;
+            
+            // Validar email
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                alert('⚠️ El email debe ser válido para recibir mensajes del plano astral');
+                return false;
+            }
+            
+            // Validar teléfono (formato mexicano)
+            const phonePattern = /^(\+52|52)?[\s-]?(\d{2})[\s-]?(\d{4})[\s-]?(\d{4})$/;
+            if (!phonePattern.test(telefono.replace(/\s/g, ''))) {
+                alert('⚠️ El teléfono debe tener formato válido (ej: 55-1234-5678)');
+                return false;
+            }
+            
+            return true;
+        }
+
+        // Mejorar el formulario con validación
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (!validateMysticForm()) {
+                return;
+            }
+            
+            // ... resto del código del formulario ya existente
+        });
+
+        // Sistema de notificaciones push místicas
+        function showMysticNotification(title, message, type = 'info') {
+            const notification = document.createElement('div');
+            const icons = {
+                info: '💫',
+                success: '✨',
+                warning: '⚠️',
+                error: '🚫',
+                magic: '🔮'
+            };
+            
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(135deg, rgba(26, 26, 46, 0.95), rgba(22, 33, 62, 0.95));
+                color: #fff;
+                padding: 1rem 1.5rem;
+                border-radius: 15px;
+                border-left: 4px solid #ffd700;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+                backdrop-filter: blur(10px);
+                z-index: 10000;
+                max-width: 300px;
+                animation: slideInRight 0.5s ease-out;
+                cursor: pointer;
+            `;
+            
+            notification.innerHTML = `
+                <div style="display: flex; align-items: center; margin-bottom: 0.5rem;">
+                    <span style="font-size: 1.5rem; margin-right: 0.5rem;">${icons[type]}</span>
+                    <strong style="color: #ffd700;">${title}</strong>
+                </div>
+                <div style="font-size: 0.9rem; opacity: 0.9;">${message}</div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Auto remove después de 5 segundos
+            setTimeout(() => {
+                if (document.body.contains(notification)) {
+                    notification.style.animation = 'slideOutRight 0.5s ease-in';
+                    setTimeout(() => {
+                        if (document.body.contains(notification)) {
+                            document.body.removeChild(notification);
+                        }
+                    }, 500);
+                }
+            }, 5000);
+            
+            // Click para cerrar
+            notification.addEventListener('click', () => {
+                if (document.body.contains(notification)) {
+                    document.body.removeChild(notification);
+                }
+            });
+        }
+
+        // CSS para animaciones de notificaciones
+        const notificationCSS = `
+            @keyframes slideInRight {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+            
+            @keyframes slideOutRight {
+                from {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+            }
+        `;
+        
+        const notificationStyleSheet = document.createElement('style');
+        notificationStyleSheet.textContent = notificationCSS;
+        document.head.appendChild(notificationStyleSheet);
+
+        // Mostrar notificaciones de ejemplo
+        setTimeout(() => {
+            showMysticNotification('Portal Activado', 'Bienvenido al Centro Místico Luna Llena', 'magic');
+        }, 3000);
+
+        setTimeout(() => {
+            showMysticNotification('Red Sincronizada', 'Todos los protocolos están funcionando correctamente', 'success');
+        }, 8000);
     </script>
 </body>
-</html>
+</html> Simple Mystical Transfer Protocol
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Estado:</span> 
+                        <span class="status-indicator status-active"></span>Conectado al Plano Astral
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Uso:</span> Envío de mensajes espirituales y notificaciones de citas
+                    </div>
+                </div>
+                
+                <div class="mystical-buttons">
+                    <button class="mystical-btn btn-spell-smtp" onclick="invokeSpell('smtp')">🕯️ Invocar Hechizo</button>
+                    <button class="mystical-btn btn-spell-smtp" onclick="showMysticConfig('smtp')">📜 Ver Pergamino</button>
+                </div>
+            </div>
+            
+            <!-- Protocolo TFTP - Transferencia de Grimorio -->
+            <div class="protocol-card tftp-card">
+                <div class="protocol-header">
+                    <div class="protocol-icon tftp-icon">📚</div>
+                    <div class="protocol-title">TFTP - Transferencia de Grimorio</div>
+                </div>
+                
+                <div class="protocol-info">
+                    <div class="info-item">
+                        <span class="info-label">Canal:</span> Puerto 69 (Etérico)
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Función:</span>

@@ -3,305 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Centro Místico Luna Llena - Sistema Completo</title>
-    
-    <!-- External Libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
-    
-    <!-- CSS Files -->
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/themes.css">
+    <title>Centro Luna - Servicios Esotéricos</title>
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <div class="header">
-        <h1>🌙 Centro Místico Luna Llena</h1>
-        <h2>Sistema de Gestión Completo - Zona Rosa, CDMX</h2>
-        <p>Equipo 3 - Carmona Viana Y Cortes Buendia</p>
-        <p>🌐 Servicios de Red: HTTP | SMTP | SYSLOG | TFTP</p>
-    </div>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">🌙 Centro Luna</h1>
+            <nav class="nav">
+                <a href="#servicios">Servicios</a>
+                <a href="#areas">Áreas</a>
+                <a href="#contacto">Contacto</a>
+            </nav>
+        </div>
+    </header>
 
-    <div class="nav-tabs">
-        <button class="tab-button active" onclick="showTab('dashboard')">🏠 Dashboard</button>
-        <button class="tab-button" onclick="showTab('reservas')">📅 Reservas</button>
-        <button class="tab-button" onclick="showTab('qr-codes')">📱 QR Codes</button>
-        <button class="tab-button" onclick="showTab('inventario')">📦 Inventario</button>
-        <button class="tab-button" onclick="showTab('mail-server')">📧 Mail Server</button>
-        <button class="tab-button" onclick="showTab('file-server')">📁 File Server</button>
-        <button class="tab-button" onclick="showTab('syslog')">📋 SysLog</button>
-    </div>
-
-    <!-- Dashboard Tab -->
-    <div id="dashboard" class="tab-content active">
-        <div class="dashboard-grid">
-            <div class="card">
-                <h3>🔧 Servicios de Red Activos</h3>
-                <div class="metric">
-                    <span><span class="status-indicator status-online"></span>HTTP Web Server</span>
-                    <span><strong>172.19.5.146:80</strong></span>
-                </div>
-                <div class="metric">
-                    <span><span class="status-indicator status-online"></span>SMTP Mail Server</span>
-                    <span><strong>172.19.5.146:25</strong></span>
-                </div>
-                <div class="metric">
-                    <span><span class="status-indicator status-online"></span>TFTP File Server</span>
-                    <span><strong>172.19.5.149:69</strong></span>
-                </div>
-                <div class="metric">
-                    <span><span class="status-indicator status-online"></span>SysLog Server</span>
-                    <span><strong>172.19.5.149:514</strong></span>
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h2>Bienvenido al Centro Luna</h2>
+                <p>Tu espacio de conexión espiritual y autoconocimiento</p>
+                <div class="equipo">
+                    <p><strong>Equipo 3:</strong> Carmona Viana Israel • Cortes Buendia Martin</p>
                 </div>
             </div>
+        </section>
 
-            <div class="card">
-                <h3>📊 Métricas en Tiempo Real</h3>
-                <div id="metricas-tiempo-real">
-                    <!-- Contenido cargado por dashboard.js -->
+        <section id="servicios" class="servicios">
+            <div class="container">
+                <h2>Nuestros Servicios Místicos</h2>
+                <div class="servicios-grid">
+                    <div class="servicio-card">
+                        <h3>🃏 Sesiones de Tarot</h3>
+                        <p>Consultas personalizadas con cartas del tarot</p>
+                        <a href="tarot/tarot.html" class="btn">Reservar Sesión</a>
+                    </div>
+                    <div class="servicio-card">
+                        <h3>🔢 Numerología</h3>
+                        <p>Descubre el poder de los números en tu vida</p>
+                        <a href="#" class="btn">Consultar</a>
+                    </div>
+                    <div class="servicio-card">
+                        <h3>⭐ Astrología</h3>
+                        <p>Carta astral y predicciones celestiales</p>
+                        <a href="#" class="btn">Ver Horóscopo</a>
+                    </div>
+                    <div class="servicio-card">
+                        <h3>💎 Piedras y Joyas</h3>
+                        <p>Cristales energéticos y amuletos protectores</p>
+                        <a href="#" class="btn">Ver Catálogo</a>
+                    </div>
                 </div>
             </div>
+        </section>
 
-            <div class="card">
-                <h3>🌕 Fase Lunar Actual</h3>
-                <div id="fase-lunar">
-                    <!-- Contenido cargado por dashboard.js -->
+        <section id="areas" class="areas">
+            <div class="container">
+                <h2>Servicios de Red - Topología Centro Luna</h2>
+                <div class="areas-grid">
+                    <div class="area-card area-1">
+                        <h3>📊 Área 1 - Ventas</h3>
+                        <p>Gestión de ingresos y transacciones</p>
+                        <span class="ip">172.19.0.0/22</span>
+                    </div>
+                    <div class="area-card area-2">
+                        <h3>🔮 Área 2 - Sesiones</h3>
+                        <p>Tarot • Astrología • Numerología</p>
+                        <span class="ip">172.19.4.0/24</span>
+                    </div>
+                    <div class="area-card area-3">
+                        <h3>📦 Área 3 - Inventarios</h3>
+                        <p>Control de stock y productos</p>
+                        <span class="ip">172.19.5.0/25</span>
+                    </div>
+                    <div class="area-card area-4">
+                        <h3>🖥️ Área 4 - Servidores</h3>
+                        <p>Administración y servicios de red</p>
+                        <span class="ip">172.19.5.144/29</span>
+                    </div>
                 </div>
             </div>
+        </section>
 
-            <div class="card">
-                <h3>⚠️ Alertas del Sistema</h3>
-                <div id="alertas-sistema">
-                    <!-- Contenido cargado por dashboard.js -->
+        <section class="servicios-red">
+            <div class="container">
+                <h2>Servicios de Red Implementados</h2>
+                <div class="servicios-red-grid">
+                    <div class="servicio-red-card">
+                        <h3>📝 SYSLOG</h3>
+                        <p>Sistema de logs centralizado</p>
+                        <p class="descripcion">Monitoreo de todas las áreas → Inventarios</p>
+                        <a href="syslog/syslog.html" class="btn-red">Ver Logs</a>
+                    </div>
+                    <div class="servicio-red-card">
+                        <h3>📁 FTP</h3>
+                        <p>Transferencia de archivos</p>
+                        <p class="descripcion">Ventas y reportes → Área 4</p>
+                        <a href="ftp/ftp.html" class="btn-red">Gestionar Archivos</a>
+                    </div>
+                    <div class="servicio-red-card">
+                        <h3>🌐 HTTP</h3>
+                        <p>Servidor web principal</p>
+                        <p class="descripcion">Portal de servicios del Centro Luna</p>
+                        <a href="#" class="btn-red">Activo</a>
+                    </div>
                 </div>
             </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Centro Luna - Equipo 3 | Carmona Viana Israel • Cortes Buendia Martin</p>
+            <p>🌙 Conectando almas con el universo</p>
         </div>
+    </footer>
 
-        <div class="dashboard-grid">
-            <div class="card">
-                <h3>📈 Consultas por Especialista</h3>
-                <div class="chart-container">
-                    <canvas id="consultasChart"></canvas>
-                </div>
-            </div>
-
-            <div class="card">
-                <h3>💰 Ventas por Categoría</h3>
-                <div class="chart-container">
-                    <canvas id="ventasChart"></canvas>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Reservas Tab -->
-    <div id="reservas" class="tab-content">
-        <div class="reservation-form">
-            <h2 style="text-align: center; color: #ffd700; margin-bottom: 2rem;">✨ Reservar Consulta</h2>
-            
-            <div class="form-group">
-                <label for="servicio">Tipo de Servicio:</label>
-                <select id="servicio" onchange="updateSpecialists()">
-                    <option value="">Selecciona un servicio...</option>
-                    <option value="tarot">🃏 Lectura de Tarot</option>
-                    <option value="videncia">🔮 Videncia y Consultas Espirituales</option>
-                    <option value="terapia">✨ Terapias Energéticas</option>
-                    <option value="vip">👑 Consulta VIP</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="especialista">Especialista:</label>
-                <select id="especialista">
-                    <option value="">Primero selecciona un servicio...</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="fecha">Fecha:</label>
-                <input type="date" id="fecha">
-            </div>
-
-            <div class="form-group">
-                <label for="hora">Hora:</label>
-                <select id="hora">
-                    <option value="">Selecciona una hora...</option>
-                    <option value="09:00">09:00 AM</option>
-                    <option value="10:00">10:00 AM</option>
-                    <option value="11:00">11:00 AM</option>
-                    <option value="12:00">12:00 PM</option>
-                    <option value="14:00">02:00 PM</option>
-                    <option value="15:00">03:00 PM</option>
-                    <option value="16:00">04:00 PM</option>
-                    <option value="17:00">05:00 PM</option>
-                    <option value="18:00">06:00 PM</option>
-                    <option value="19:00">07:00 PM</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="nombre">Nombre Completo:</label>
-                <input type="text" id="nombre" placeholder="Tu nombre completo">
-            </div>
-
-            <div class="form-group">
-                <label for="telefono">Teléfono:</label>
-                <input type="tel" id="telefono" placeholder="55 1234 5678">
-            </div>
-
-            <button class="btn" onclick="reservarCita()">✨ Confirmar Reserva</button>
-            
-            <div id="reservaResult" style="margin-top: 1rem;"></div>
-        </div>
-    </div>
-
-    <!-- QR Codes Tab -->
-    <div id="qr-codes" class="tab-content">
-        <div class="qr-section">
-            <h2 style="color: #ffd700; margin-bottom: 2rem;">📱 Códigos QR para Reservas</h2>
-            <p>Escanea el código QR desde tu mesa para hacer una reserva directa</p>
-            
-            <div class="qr-grid" id="qr-container">
-                <!-- Contenido cargado por main.js -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Inventario Tab -->
-    <div id="inventario" class="tab-content">
-        <div class="dashboard-grid" id="inventario-container">
-            <!-- Contenido cargado por main.js -->
-        </div>
-
-        <div class="dashboard-grid">
-            <div class="card">
-                <h3>📊 Estadísticas de Temporada</h3>
-                <div class="chart-container">
-                    <canvas id="temporadaChart"></canvas>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Mail Server Tab -->
-    <div id="mail-server" class="tab-content">
-        <div class="service-grid">
-            <div class="service-card">
-                <div class="service-icon">📧</div>
-                <h3>Servidor de Correo SMTP</h3>
-                <p><strong>IP:</strong> 172.19.5.146:25</p>
-                <p><span class="status-indicator status-online"></span>Estado: Activo</p>
-                <p><strong>Emails enviados hoy:</strong> <span id="emails-enviados">47</span></p>
-                <p><strong>Cola de envío:</strong> <span id="cola-envio">3</span> pendientes</p>
-            </div>
-
-            <div class="card">
-                <h3>📊 Estadísticas de Email</h3>
-                <div id="estadisticas-email">
-                    <!-- Contenido cargado por mail-server.js -->
-                </div>
-            </div>
-        </div>
-
-        <div class="mail-compose">
-            <h3 style="color: #ffd700; margin-bottom: 1rem;">✉️ Enviar Email</h3>
-            <div class="form-group">
-                <label for="emailTo">Para:</label>
-                <input type="email" id="emailTo" placeholder="destinatario@ejemplo.com">
-            </div>
-            <div class="form-group">
-                <label for="emailSubject">Asunto:</label>
-                <input type="text" id="emailSubject" placeholder="Asunto del mensaje">
-            </div>
-            <div class="form-group">
-                <label for="emailBody">Mensaje:</label>
-                <textarea id="emailBody" rows="5" placeholder="Escribe tu mensaje aquí..."></textarea>
-            </div>
-            <button class="btn" onclick="enviarEmail()">📤 Enviar Email</button>
-            <div id="emailResult" style="margin-top: 1rem;"></div>
-        </div>
-    </div>
-
-    <!-- File Server Tab -->
-    <div id="file-server" class="tab-content">
-        <div class="service-grid">
-            <div class="service-card">
-                <div class="service-icon">📁</div>
-                <h3>Servidor TFTP</h3>
-                <p><strong>IP:</strong> 172.19.5.149:69</p>
-                <p><span class="status-indicator status-online"></span>Estado: Activo</p>
-                <p><strong>Transferencias hoy:</strong> <span id="transferencias-hoy">23</span></p>
-                <p><strong>Espacio usado:</strong> <span id="espacio-usado">2.3GB / 50GB</span></p>
-            </div>
-
-            <div class="card">
-                <h3>📈 Actividad TFTP</h3>
-                <div id="actividad-tftp">
-                    <!-- Contenido cargado por file-server.js -->
-                </div>
-            </div>
-        </div>
-
-        <div class="file-manager">
-            <h3 style="color: #ffd700; margin-bottom: 1rem;">📂 Gestor de Archivos TFTP</h3>
-            
-            <div class="form-group">
-                <label for="fileUpload">Subir Archivo:</label>
-                <input type="file" id="fileUpload" style="color: #fff;">
-                <button class="btn" onclick="subirArchivo()" style="margin-top: 10px; width: auto; padding: 0.5rem 1rem;">📤 Subir</button>
-            </div>
-
-            <h4 style="color: #ffd700; margin: 1.5rem 0 1rem 0;">Archivos Disponibles:</h4>
-            <div id="lista-archivos">
-                <!-- Contenido cargado por file-server.js -->
-            </div>
-
-            <div id="fileResult" style="margin-top: 1rem;"></div>
-        </div>
-    </div>
-
-    <!-- SysLog Tab -->
-    <div id="syslog" class="tab-content">
-        <div class="service-grid">
-            <div class="service-card">
-                <div class="service-icon">📋</div>
-                <h3>Servidor SysLog</h3>
-                <p><strong>IP:</strong> 172.19.5.149:514</p>
-                <p><span class="status-indicator status-online"></span>Estado: Activo</p>
-                <p><strong>Eventos hoy:</strong> <span id="eventos-hoy">1,247</span></p>
-                <p><strong>Errores críticos:</strong> <span id="errores-criticos">0</span></p>
-            </div>
-
-            <div class="card">
-                <h3>📊 Estadísticas de Logs</h3>
-                <div id="estadisticas-logs">
-                    <!-- Contenido cargado por syslog.js -->
-                </div>
-            </div>
-        </div>
-
-        <div class="network-monitor">
-            <h3 style="color: #ffd700; margin-bottom: 1rem;">🖥️ Monitor de Red</h3>
-            <div class="dashboard-grid" id="monitor-red">
-                <!-- Contenido cargado por syslog.js -->
-            </div>
-        </div>
-
-        <div class="log-container">
-            <h4 style="color: #ffd700; margin-bottom: 1rem;">📝 Logs en Tiempo Real</h4>
-            <div id="syslogMessages">
-                <!-- Contenido cargado por syslog.js -->
-            </div>
-            <button class="btn" onclick="actualizarLogs()" style="margin-top: 1rem;">🔄 Actualizar Logs</button>
-        </div>
-    </div>
-
-    <!-- JavaScript Files -->
-    <script src="js/network-config.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/dashboard.js"></script>
-    <script src="js/reservas.js"></script>
-    <script src="js/mail-server.js"></script>
-    <script src="js/file-server.js"></script>
-    <script src="js/syslog.js"></script>
-    <script src="js/charts.js"></script>
+    <script src="index.js"></script>
 </body>
 </html>
