@@ -17,3 +17,10 @@
 2025-06-26T03:56:50.923996 | 16 | 6 | vm2-syslog | servidores | SYSLOG Server VM2 started successfully
 2025-06-26T04:13:13.634788 | 16 | 6 | vm2-syslog | servidores | SYSLOG Server VM2 started successfully
 2025-06-26T04:13:13.821189 | 16 | 6 | vm2-syslog | servidores | SYSLOG Server VM2 started successfully
+2025-06-26T15:44:39.127634 | 16 | 6 | vm2-syslog | servidores | SYSLOG Server VM2 started successfully
+2025-06-26T15:44:39.665464 | 16 | 6 | vm2-syslog | servidores | SYSLOG Server VM2 started successfully
+2025-06-26T15:53:22.374896 | 16 | 6 | vm2-syslog | servidores | SYSLOG Server VM2 started successfully
+2025-06-26T15:53:22.580910 | 16 | 6 | vm2-syslog | servidores | SYSLOG Server VM2 started successfully
+2025-06-26T16:25:05.481400 | 16 | 6 | vm2-syslog | servidores | SYSLOG Server VM2 started successfully
+2025-06-26T16:25:05.682071 | 16 | 6 | vm2-syslog | servidores | SYSLOG Server VM2 started successfully
+2025-06-26T17:34:48.772785 | 16 | 6 | vm2-syslog | servidores | SYSLOG Server VM2 started successfully

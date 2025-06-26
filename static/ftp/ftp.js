@@ -99,6 +99,7 @@ class FTPSystem {
     }
 
     setupEventListeners() {
+        
     // Botones principales
     document.getElementById('refreshFiles').addEventListener('click', () => {
         this.refreshFiles();

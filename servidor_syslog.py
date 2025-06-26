@@ -1,6 +1,8 @@
 # VM2 - servidor_syslog.py  
 # Centro Luna - Servidor SYSLOG
-# IP: 172.19.5.147:514
+# IP: 172.19.5.147
+# Puerto SYSLOG UDP: 514
+# Puerto HTTP API: 5000
 
 from flask import Flask, request, jsonify
 from flask_cors import CORS
@@ -27,6 +29,7 @@ class SyslogServer:
             'servidores': {'network': '172.19.5.144/29', 'router': '172.19.5.145'}
         }
         
+        self.udp_server_running = False
         self.start_udp_server()
     
     def add_log(self, log_entry):
@@ -58,10 +61,32 @@ class SyslogServer:
     def start_udp_server(self):
         """Iniciar servidor UDP para recibir logs SYSLOG reales"""
         def udp_server():
+            sock = None
             try:
                 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-                sock.bind(('0.0.0.0', 514))
-                print("✅ UDP SYSLOG Server listening on port 514")
+                # Permitir reutilizar la dirección
+                sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+                
+                # Intentar diferentes puertos si 514 está ocupado
+                ports_to_try = [514, 1514, 2514]
+                bound_port = None
+                
+                for port in ports_to_try:
+                    try:
+                        sock.bind(('0.0.0.0', port))
+                        bound_port = port
+                        print(f"✅ UDP SYSLOG Server listening on port {port}")
+                        break
+                    except OSError as e:
+                        if port == 514:
+                            print(f"⚠️  Port 514 occupied, trying alternative port...")
+                        continue
+                
+                if bound_port is None:
+                    print("❌ Could not bind to any UDP port")
+                    return
+                
+                self.udp_server_running = True
                 
                 while True:
                     try:
@@ -84,9 +109,13 @@ class SyslogServer:
                         
                     except Exception as e:
                         print(f"UDP Server error: {e}")
+                        
             except Exception as e:
                 print(f"❌ Error starting UDP server: {e}")
-                print("Continuando solo con HTTP...")
+                print("Continuing with HTTP only...")
+            finally:
+                if sock:
+                    sock.close()
         
         thread = threading.Thread(target=udp_server, daemon=True)
         thread.start()
@@ -160,8 +189,10 @@ def get_stats():
         'server_info': {
             'hostname': 'vm2-syslog',
             'ip': '172.19.5.147',
-            'port': 514,
-            'protocol': 'UDP/HTTP'
+            'udp_port': 514,
+            'http_port': 5000,
+            'protocol': 'UDP/HTTP',
+            'udp_running': syslog_server.udp_server_running
         }
     }
     
@@ -179,7 +210,8 @@ def health_check():
         'status': 'healthy',
         'timestamp': datetime.now().isoformat(),
         'server': 'vm2-syslog',
-        'logs_count': len(syslog_server.logs)
+        'logs_count': len(syslog_server.logs),
+        'udp_server_running': syslog_server.udp_server_running
     })
 
 @app.route('/clear', methods=['POST'])
@@ -188,10 +220,27 @@ def clear_logs():
     syslog_server.logs = []
     return jsonify({'success': True, 'message': 'Logs cleared'})
 
+@app.route('/')
+def index():
+    """Página de información del servidor"""
+    return jsonify({
+        'server': 'Centro Luna SYSLOG Server VM2',
+        'ip': '172.19.5.147',
+        'endpoints': {
+            '/logs': 'GET - Obtener logs',
+            '/log': 'POST - Enviar log',
+            '/stats': 'GET - Estadísticas',
+            '/health': 'GET - Health check',
+            '/clear': 'POST - Limpiar logs'
+        },
+        'udp_running': syslog_server.udp_server_running
+    })
+
 if __name__ == '__main__':
     print("📝 Centro Luna - Servidor SYSLOG VM2")
-    print("IP: 172.19.5.147:514")
-    print("Servicios: SYSLOG UDP, HTTP API")
+    print("IP: 172.19.5.147")
+    print("HTTP API Port: 5000")
+    print("UDP SYSLOG Port: 514 (or alternative if occupied)")
     print("Log file: centro_luna_syslog.txt")
     
     # Log de inicio
@@ -204,4 +253,5 @@ if __name__ == '__main__':
         'message': 'SYSLOG Server VM2 started successfully'
     })
     
-    app.run(host='0.0.0.0', port=514, debug=True)
+    # Ejecutar Flask en puerto 5000, NO en 514
+    app.run(host='0.0.0.0', port=5000, debug=False)
