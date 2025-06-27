@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centro Místico Luna Llena - Zona Rosa, CDMX</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">
+                <span class="moon-icon">🌕</span>
+                <span>Luna Llena</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#reservar">Reservar</a></li>
+                <li><a href="#red">Conectar</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero" id="inicio">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <h1>Centro Místico Luna Llena</h1>
+            <p>Descubre los secretos del universo en el corazón de la Zona Rosa</p>
+            <p class="hero-subtitle">✨ Más de 15 años guiando almas hacia su destino ✨</p>
+            <div class="hero-buttons">
+                <a href="#reservar" class="cta-button primary">Reservar Sesión</a>
+                <a href="#servicios" class="cta-button secondary">Conocer Servicios</a>
+            </div>
+        </div>
+        <div class="floating-elements">
+            <div class="star star-1">⭐</div>
+            <div class="star star-2">✨</div>
+            <div class="star star-3">🌟</div>
+            <div class="star star-4">⭐</div>
+        </div>
+    </section>
+
+    <div class="container">
+        <section id="servicios" class="services-section">
+            <h2 class="section-title">Nuestros Servicios Místicos</h2>
+            <p class="section-subtitle">Cada consulta es única y personalizada para ti</p>
+            
+            <div class="services-grid">
+                <div class="service-card" data-service="tarot">
+                    <div class="service-icon">🔮</div>
+                    <h3>Lectura de Tarot</h3>
+                    <div class="service-price">$350 MXN</div>
+                    <p>Descubre tu pasado, presente y futuro através de las cartas del tarot. Nuestros expertos lectores te guiarán por el camino de la sabiduría ancestral.</p>
+                    <ul class="service-benefits">
+                        <li>✓ Lectura personalizada de 45 minutos</li>
+                        <li>✓ Interpretación detallada de cada carta</li>
+                        <li>✓ Consejos para tu crecimiento personal</li>
+                        <li>✓ Grabación de audio de tu sesión</li>
+                    </ul>
+                    <button class="service-btn" onclick="selectService('tarot')">Elegir Tarot</button>
+                </div>
+
+                <div class="service-card featured" data-service="astrologia">
+                    <div class="featured-badge">Más Popular</div>
+                    <div class="service-icon">⭐</div>
+                    <h3>Carta Astral</h3>
+                    <div class="service-price">$500 MXN</div>
+                    <p>Tu mapa celestial personal que revela tu propósito de vida, fortalezas y el momento perfecto para tomar decisiones importantes.</p>
+                    <ul class="service-benefits">
+                        <li>✓ Carta natal completa y detallada</li>
+                        <li>✓ Análisis de planetas y casas</li>
+                        <li>✓ Predicciones para los próximos 6 meses</li>
+                        <li>✓ Informe impreso de 10 páginas</li>
+                    </ul>
+                    <button class="service-btn" onclick="selectService('astrologia')">Elegir Astrología</button>
+                </div>
+
+                <div class="service-card" data-service="numerologia">
+                    <div class="service-icon">🔢</div>
+                    <h3>Numerología</h3>
+                    <div class="service-price">$300 MXN</div>
+                    <p>Los números de tu vida revelan secretos profundos sobre tu personalidad, misión de vida y los ciclos de abundancia que te esperan.</p>
+                    <ul class="service-benefits">
+                        <li>✓ Cálculo de tu número de vida</li>
+                        <li>✓ Análisis de compatibilidad</li>
+                        <li>✓ Ciclos numerológicos personales</li>
+                        <li>✓ Amuletos numéricos recomendados</li>
+                    </ul>
+                    <button class="service-btn" onclick="selectService('numerologia')">Elegir Numerología</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="reservar" class="booking-section">
+            <h2 class="section-title">Reserva tu Sesión</h2>
+            <p class="section-subtitle">Selecciona el servicio que más resuene contigo</p>
+            
+            <div class="booking-form-container">
+                <form id="bookingForm" class="booking-form">
+                    <div class="form-group">
+                        <label for="name">Nombre completo *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Correo electrónico *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Teléfono *</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="service">Servicio *</label>
+                        <select id="service" name="service" required>
+                            <option value="">Selecciona un servicio</option>
+                            <option value="tarot">🔮 Lectura de Tarot - $350</option>
+                            <option value="astrologia">⭐ Carta Astral - $500</option>
+                            <option value="numerologia">🔢 Numerología - $300</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="date">Fecha preferida *</label>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="time">Hora preferida *</label>
+                        <select id="time" name="time" required>
+                            <option value="">Selecciona una hora</option>
+                            <option value="10:00">10:00 AM</option>
+                            <option value="11:00">11:00 AM</option>
+                            <option value="12:00">12:00 PM</option>
+                            <option value="14:00">2:00 PM</option>
+                            <option value="15:00">3:00 PM</option>
+                            <option value="16:00">4:00 PM</option>
+                            <option value="17:00">5:00 PM</option>
+                            <option value="18:00">6:00 PM</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="birthdate">Fecha de nacimiento (para servicios astrológicos)</label>
+                        <input type="date" id="birthdate" name="birthdate">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Mensaje adicional</label>
+                        <textarea id="message" name="message" rows="4" placeholder="Cuéntanos qué te gustaría explorar en tu sesión..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Confirmar Reserva</button>
+                </form>
+            </div>
+        </section>
+
+        <section class="network-section" id="red">
+            <h2 class="section-title">Conexión Segura y Privada</h2>
+            <p class="section-subtitle">Cada departamento cuenta con su propia red para garantizar la confidencialidad total</p>
+            
+            <div class="network-grid">
+                <div class="network-card">
+                    <h3>🔮 Departamento Tarot</h3>
+                    <div class="qr-container">
+                        <div id="qr-tarot" class="qr-code"></div>
+                    </div>
+                    <div class="network-info">
+                        <strong>VLAN 10 - Red Privada</strong><br>
+                        Red: 172.19.4.0/24<br>
+                        Gateway: 172.19.4.1<br>
+                        <em>Encriptación WPA3</em>
+                    </div>
+                    <button class="connect-btn" onclick="connectToNetwork('TAROT')">Conectar</button>
+                </div>
+                
+                <div class="network-card">
+                    <h3>⭐ Departamento Astrología</h3>
+                    <div class="qr-container">
+                        <div id="qr-astro" class="qr-code"></div>
+                    </div>
+                    <div class="network-info">
+                        <strong>VLAN 20 - Red Privada</strong><br>
+                        Red: 172.19.6.0/24<br>
+                        Gateway: 172.19.6.1<br>
+                        <em>Encriptación WPA3</em>
+                    </div>
+                    <button class="connect-btn" onclick="connectToNetwork('ASTRO')">Conectar</button>
+                </div>
+                
+                <div class="network-card">
+                    <h3>🔢 Departamento Numerología</h3>
+                    <div class="qr-container">
+                        <div id="qr-numero" class="qr-code"></div>
+                    </div>
+                    <div class="network-info">
+                        <strong>VLAN 30 - Red Privada</strong><br>
+                        Red: 172.19.7.0/24<br>
+                        Gateway: 172.19.7.1<br>
+                        <em>Encriptación WPA3</em>
+                    </div>
+                    <button class="connect-btn" onclick="connectToNetwork('NUMERO')">Conectar</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal de Conexión por QR -->
+    <div id="qrConnectionModal" class="modal">
+        <div class="modal-content qr-connection-modal">
+            <span class="close" onclick="closeQRConnectionModal()">&times;</span>
+            <div class="connection-loading">
+                <div class="loading-circle">
+                    <div class="loading-spinner-large"></div>
+                </div>
+                <h2 id="qrConnectionMessage">Conectándote a tu sesión...</h2>
+                <div class="service-icon-large" id="qrServiceIcon">🔮</div>
+                <p id="qrConnectionDetails">Estableciendo conexión segura...</p>
+                <div class="connection-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <div class="progress-text" id="progressText">Iniciando...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmación de Reserva -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content booking-modal">
+            <span class="close" onclick="closeBookingModal()">&times;</span>
+            <div class="modal-header">
+                <h2>¡Reserva Confirmada! ✨</h2>
+                <div class="success-icon">🎉</div>
+            </div>
+            <div class="booking-details">
+                <div class="qr-section">
+                    <h3>Tu Código QR Personal</h3>
+                    <div id="booking-qr" class="booking-qr-code"></div>
+                    <div class="qr-info">
+                        <h4 id="assigned-network">Red asignada: VLAN 10</h4>
+                        <p id="network-details">172.19.4.0/24</p>
+                    </div>
+                </div>
+                <div class="instructions">
+                    <h3>📱 Instrucciones Importantes</h3>
+                    <div class="instruction-card">
+                        <p><strong>1. Toma captura de pantalla</strong> de este QR</p>
+                        <p><strong>2. Guárdalo en tu galería</strong> para fácil acceso</p>
+                        <p><strong>3. Escanea este QR al llegar</strong> a tu cita</p>
+                        <p><strong>4. No olvides llegar 10 minutos antes</strong></p>
+                    </div>
+                </div>
+                <div class="appointment-summary">
+                    <h3>Resumen de tu Cita</h3>
+                    <div id="appointment-details" class="appointment-details">
+                        <!-- Se llenará dinámicamente -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Conexión -->
+    <div id="connectionModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="welcomeMessage">Bienvenido a tu sesión</h2>
+            <div class="connection-icon">🌟</div>
+            <p id="sessionDetails">Conectando a red segura...</p>
+            <div class="connection-status">
+                <div class="status-info">
+                    <strong>Estado de conexión:</strong><br>
+                    <span id="connectionStatus">Estableciendo conexión...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="contacto">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Centro Místico Luna Llena</h3>
+                    <p>📍 Zona Rosa, Ciudad de México</p>
+                    <p>📞 +52 55 1234 5678</p>
+                    <p>✉️ info@lunallena.mx</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Horarios</h3>
+                    <p>Lunes a Viernes: 10:00 - 20:00</p>
+                    <p>Sábados: 10:00 - 18:00</p>
+                    <p>Domingos: 12:00 - 17:00</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Síguenos</h3>
+                    <div class="social-links">
+                        <a href="#">📘 Facebook</a>
+                        <a href="#">📷 Instagram</a>
+                        <a href="#">🐦 Twitter</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Centro Místico Luna Llena. Todos los derechos reservados.</p>
+                <p>🔒 Privacidad total garantizada | Red segura por departamento</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
