@@ -103,14 +103,18 @@ function showQRConnectionScreen(department, vlan, network) {
     modal.style.display = 'block';
     document.body.style.overflow = 'hidden';
     
+    // Generar datos de conexión VPC
+    const connectionData = generateVPCConnectionData(department, vlan, network);
+    
     // Simular proceso de conexión con barra de progreso
     let progress = 0;
     const steps = [
-        { progress: 20, text: 'Verificando credenciales...', delay: 800 },
-        { progress: 40, text: 'Conectando a red privada...', delay: 1200 },
-        { progress: 60, text: 'Estableciendo túnel seguro...', delay: 1000 },
-        { progress: 80, text: 'Configurando acceso...', delay: 800 },
-        { progress: 100, text: '¡Conexión establecida!', delay: 1000 }
+        { progress: 15, text: 'Iniciando túnel VPC...', delay: 800, action: () => logToSyslog('VPC_TUNNEL_INIT', connectionData) },
+        { progress: 30, text: 'Verificando credenciales...', delay: 1000, action: () => logToSyslog('AUTH_VERIFY', connectionData) },
+        { progress: 50, text: 'Conectando a red privada...', delay: 1200, action: () => logToSyslog('NETWORK_CONNECT', connectionData) },
+        { progress: 70, text: 'Configurando firewall...', delay: 800, action: () => logToSyslog('FIREWALL_CONFIG', connectionData) },
+        { progress: 85, text: 'Asignando IP privada...', delay: 600, action: () => logToSyslog('IP_ASSIGN', connectionData) },
+        { progress: 100, text: '¡Conexión VPC establecida!', delay: 1000, action: () => logToSyslog('VPC_CONNECTED', connectionData) }
     ];
     
     let currentStep = 0;
@@ -123,11 +127,22 @@ function showQRConnectionScreen(department, vlan, network) {
                 progressFill.style.width = step.progress + '%';
                 progressText.textContent = step.text;
                 
+                // Ejecutar acción de logging
+                if (step.action) {
+                    step.action();
+                }
+                
                 if (step.progress === 100) {
                     setTimeout(() => {
+                        // Log final de sesión iniciada
+                        logToSyslog('SESSION_STARTED', {
+                            ...connectionData,
+                            sessionStartTime: new Date().toISOString()
+                        });
+                        
                         // Redirigir a la página principal después de la conexión exitosa
-                        window.location.href = window.location.pathname; // Limpiar parámetros URL
-                        showSuccessMessage(serviceName);
+                        window.location.href = window.location.pathname;
+                        showSuccessMessage(serviceName, connectionData);
                     }, 1500);
                 } else {
                     currentStep++;
@@ -137,11 +152,192 @@ function showQRConnectionScreen(department, vlan, network) {
         }
     }
     
+    // Iniciar logging de conexión
+    logToSyslog('QR_SCANNED', connectionData);
     executeStep();
 }
 
-function showSuccessMessage(serviceName) {
-    showAlert(`¡Conectado exitosamente a ${serviceName}! Tu sesión está lista.`, 'success');
+function generateVPCConnectionData(department, vlan, network) {
+    const timestamp = new Date().toISOString();
+    const sessionId = 'VPC-' + Date.now().toString(36).toUpperCase();
+    const clientIP = generateClientIP(network);
+    const gatewayIP = network.replace('0/24', '1');
+    
+    return {
+        sessionId: sessionId,
+        timestamp: timestamp,
+        department: department,
+        vlan: vlan,
+        network: network,
+        clientIP: clientIP,
+        gatewayIP: gatewayIP,
+        clientMAC: generateRandomMAC(),
+        userAgent: navigator.userAgent,
+        protocol: 'WPA3-VPC',
+        encryptionLevel: 'AES-256',
+        tunnelType: 'OpenVPN',
+        serverLocation: 'ZonaRosa-DC1'
+    };
+}
+
+function generateClientIP(network) {
+    // Generar IP aleatoria dentro del rango de la red
+    const baseIP = network.split('.').slice(0, 3).join('.');
+    const randomHost = Math.floor(Math.random() * 200) + 10; // IPs .10 a .210
+    return `${baseIP}.${randomHost}`;
+}
+
+function generateRandomMAC() {
+    return "XX:XX:XX:XX:XX:XX".replace(/X/g, function() {
+        return "0123456789ABCDEF".charAt(Math.floor(Math.random() * 16));
+    });
+}
+
+function logToSyslog(eventType, data) {
+    const logEntry = {
+        timestamp: new Date().toISOString(),
+        facility: 'LOCAL0',
+        severity: 'INFO',
+        hostname: 'luna-llena-vpn-gw',
+        appName: 'vpn-controller',
+        procId: Math.floor(Math.random() * 9999),
+        msgId: eventType,
+        message: generateLogMessage(eventType, data)
+    };
+    
+    // Mostrar en consola del navegador (simulando Syslog)
+    console.log(`[SYSLOG] ${logEntry.timestamp} ${logEntry.hostname} ${logEntry.appName}[${logEntry.procId}]: ${logEntry.message}`);
+    
+    // Almacenar en localStorage para simulación
+    const logs = JSON.parse(localStorage.getItem('luna_llena_vpn_logs') || '[]');
+    logs.push(logEntry);
+    
+    // Mantener solo los últimos 100 logs
+    if (logs.length > 100) {
+        logs.splice(0, logs.length - 100);
+    }
+    
+    localStorage.setItem('luna_llena_vpn_logs', JSON.stringify(logs));
+    
+    // En un entorno real, aquí enviarías a tu servidor Syslog
+    // sendToSyslogServer(logEntry);
+}
+
+function generateLogMessage(eventType, data) {
+    switch(eventType) {
+        case 'QR_SCANNED':
+            return `QR code scanned for ${data.department.toUpperCase()} session - SessionID: ${data.sessionId}`;
+        case 'VPC_TUNNEL_INIT':
+            return `Initializing VPC tunnel for VLAN ${data.vlan} - SessionID: ${data.sessionId}`;
+        case 'AUTH_VERIFY':
+            return `Authentication verified for client MAC: ${data.clientMAC} - SessionID: ${data.sessionId}`;
+        case 'NETWORK_CONNECT':
+            return `Client connecting to network ${data.network} via ${data.tunnelType} - SessionID: ${data.sessionId}`;
+        case 'FIREWALL_CONFIG':
+            return `Firewall rules configured for ${data.department.toUpperCase()} department access - SessionID: ${data.sessionId}`;
+        case 'IP_ASSIGN':
+            return `IP address ${data.clientIP} assigned to client - Gateway: ${data.gatewayIP} - SessionID: ${data.sessionId}`;
+        case 'VPC_CONNECTED':
+            return `VPC connection established successfully - Client: ${data.clientIP} - SessionID: ${data.sessionId}`;
+        case 'SESSION_STARTED':
+            return `${data.department.toUpperCase()} session started - Client: ${data.clientIP} - Encryption: ${data.encryptionLevel} - SessionID: ${data.sessionId}`;
+        default:
+            return `VPC event: ${eventType} - SessionID: ${data.sessionId}`;
+    }
+}
+
+// Función para enviar a servidor Syslog real (comentada para demo)
+function sendToSyslogServer(logEntry) {
+    /*
+    // En un entorno real, enviarías los logs a tu servidor Syslog
+    // Ejemplo usando fetch API:
+    
+    fetch('https://tu-servidor-syslog.com/api/logs', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer tu-token-aqui'
+        },
+        body: JSON.stringify(logEntry)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Log enviado a Syslog server:', data);
+    })
+    .catch(error => {
+        console.error('Error enviando a Syslog:', error);
+    });
+    */
+}
+
+// Función para conectar con GNS3 (simulación)
+function connectToGNS3Network(connectionData) {
+    /*
+    // En un entorno real con GNS3, podrías:
+    // 1. Conectar vía API de GNS3
+    // 2. Activar interfaces específicas
+    // 3. Configurar VLANs dinámicamente
+    
+    const gns3Config = {
+        projectId: 'luna-llena-network',
+        nodeId: connectionData.department + '-switch',
+        vlan: connectionData.vlan,
+        clientMAC: connectionData.clientMAC,
+        assignedIP: connectionData.clientIP
+    };
+    
+    fetch('http://localhost:3080/v2/projects/' + gns3Config.projectId + '/nodes/' + gns3Config.nodeId, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            vlan_config: gns3Config.vlan,
+            client_mac: gns3Config.clientMAC,
+            assigned_ip: gns3Config.assignedIP
+        })
+    });
+    */
+}
+
+// Función para mostrar dashboard de conexiones (bonus)
+function showConnectionDashboard() {
+    const logs = JSON.parse(localStorage.getItem('luna_llena_vpn_logs') || '[]');
+    const connections = logs.filter(log => log.msgId === 'SESSION_STARTED');
+    
+    console.log('=== DASHBOARD DE CONEXIONES ACTIVAS ===');
+    console.log(`Total de sesiones iniciadas: ${connections.length}`);
+    
+    const departmentStats = {};
+    connections.forEach(conn => {
+        const dept = conn.message.split(' ')[0];
+        departmentStats[dept] = (departmentStats[dept] || 0) + 1;
+    });
+    
+    console.log('Estadísticas por departamento:');
+    Object.entries(departmentStats).forEach(([dept, count]) => {
+        console.log(`  ${dept}: ${count} conexiones`);
+    });
+    
+    console.log('Últimas 5 conexiones:');
+    connections.slice(-5).forEach(conn => {
+        console.log(`  ${conn.timestamp} - ${conn.message}`);
+    });
+    console.log('======================================');
+}
+
+function showSuccessMessage(serviceName, connectionData) {
+    const message = `¡Conectado exitosamente a ${serviceName}! Tu sesión está lista.\nIP asignada: ${connectionData.clientIP}`;
+    showAlert(message, 'success');
+    
+    // Mostrar información de conexión en consola
+    console.log('=== CONEXIÓN VPC ESTABLECIDA ===');
+    console.log(`Servicio: ${serviceName}`);
+    console.log(`IP Cliente: ${connectionData.clientIP}`);
+    console.log(`Gateway: ${connectionData.gatewayIP}`);
+    console.log(`Session ID: ${connectionData.sessionId}`);
+    console.log(`Encriptación: ${connectionData.encryptionLevel}`);
+    console.log('================================');
 }
 
 function setupEventListeners() {
